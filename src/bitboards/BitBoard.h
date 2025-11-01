@@ -26,14 +26,14 @@ private:
 
 public:
   // Good ol' constructors
-  BitBoard() : m_ullBits(0) {};
-  BitBoard(uint64_t value);
+  BitBoard() : m_ullBits(0) {}
+  BitBoard(uint64_t value) : m_ullBits(value) {}
   // Getters
   bool isSet(const core::Position &pos) const;
+  bool isSet(int index) const;
   uint64_t getBits() const;
   core::Position getFirstSetBit() const;
   std::vector<core::Position> getSetBitPositions() const;
-  int popCount() const;
   // Setters
   void setBit(const core::Position &pos);
   void clearBit(const core::Position &pos);
