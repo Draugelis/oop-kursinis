@@ -19,7 +19,14 @@ namespace core {
  */
 class PieceType {
 public:
-  enum Value { PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING };
+  enum Value {
+    PAWN = 0,
+    KNIGHT = 1,
+    BISHOP = 2,
+    ROOK = 3,
+    QUEEN = 4,
+    KING = 5
+  };
 
   PieceType() = default;
   constexpr PieceType(Value value) : m_value(value) {}
