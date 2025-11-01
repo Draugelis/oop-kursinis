@@ -7,7 +7,7 @@
 
 #include <string>
 
-namespace Core {
+namespace core {
 /**
  * @brief Enumerator class for Chess piece types
  *
@@ -37,4 +37,4 @@ private:
   Value m_value;
 };
 
-} // namespace Core
+} // namespace core

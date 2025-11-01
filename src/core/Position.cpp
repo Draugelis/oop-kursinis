@@ -1,7 +1,7 @@
 #include "Position.h"
 #include "Constants.h"
 
-Core::Position::Position(int rank, int file) : m_nRank(rank), m_nFile(file) {}
+core::Position::Position(int rank, int file) : m_nRank(rank), m_nFile(file) {}
 
 /**
  * @brief Construct a Position from a bitboard index
@@ -12,12 +12,12 @@ Core::Position::Position(int rank, int file) : m_nRank(rank), m_nFile(file) {}
  * @param index Bitboard index (0-63) where bits are numbered from LSB to MSB
 
  */
-Core::Position::Position(int index)
-    : m_nRank(index / Core::NUM_FILES), m_nFile(index % Core::NUM_FILES) {}
+core::Position::Position(int index)
+    : m_nRank(index / core::NUM_FILES), m_nFile(index % core::NUM_FILES) {}
 
-int Core::Position::getRank() const { return m_nRank; }
+int core::Position::getRank() const { return m_nRank; }
 
-int Core::Position::getFile() const { return m_nFile; }
+int core::Position::getFile() const { return m_nFile; }
 
 /**
  * @brief Check whether position (rank and file) is within boundaries
@@ -25,9 +25,9 @@ int Core::Position::getFile() const { return m_nFile; }
  * @return true If Position is within boundaries
  * @return false If Position is not within boundaries
  */
-bool Core::Position::isValid() const {
-  return m_nRank >= Core::MIN_RANK && m_nRank <= Core::MAX_RANK &&
-         m_nFile >= Core::MIN_FILE && m_nFile <= Core::MAX_FILE;
+bool core::Position::isValid() const {
+  return m_nRank >= core::MIN_RANK && m_nRank <= core::MAX_RANK &&
+         m_nFile >= core::MIN_FILE && m_nFile <= core::MAX_FILE;
 }
 
 /**
@@ -35,7 +35,7 @@ bool Core::Position::isValid() const {
  *
  * @return int Position index in a bitboard
  */
-int Core::Position::toIndex() const { return m_nRank * 8 + m_nFile; }
+int core::Position::toIndex() const { return m_nRank * 8 + m_nFile; }
 
 /**
  * @brief Convert position to a standard chess notation (e.g. "e4")
@@ -45,7 +45,7 @@ int Core::Position::toIndex() const { return m_nRank * 8 + m_nFile; }
  *
  * @return std::string Standard chess notation
  */
-std::string Core::Position::toString() const {
+std::string core::Position::toString() const {
   return {char('a' + m_nFile), char('1' + m_nRank)};
 }
 
@@ -59,7 +59,7 @@ std::string Core::Position::toString() const {
  * @return true If ranks and files match
  * @return false If ranks and files do not match
  */
-bool Core::Position::operator==(const Core::Position &other) const {
+bool core::Position::operator==(const core::Position &other) const {
   return m_nRank == other.m_nRank && m_nFile == other.m_nFile;
 }
 
@@ -72,6 +72,6 @@ bool Core::Position::operator==(const Core::Position &other) const {
  * @return true If ranks and files do not match
  * @return false If ranks and files match
  */
-bool Core::Position::operator!=(const Core::Position &other) const {
+bool core::Position::operator!=(const core::Position &other) const {
   return !(*this == other);
 }

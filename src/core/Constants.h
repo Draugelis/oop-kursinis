@@ -4,7 +4,7 @@
  *
  */
 
-namespace Core {
+namespace core {
 // Board dimensions
 constexpr int BOARD_SIZE = 8;
 constexpr int TOTAL_SQUARES = BOARD_SIZE * BOARD_SIZE;
@@ -50,4 +50,4 @@ constexpr int MAX_RANK = RANK_8;
 constexpr int MIN_FILE = FILE_A;
 constexpr int MAX_FILE = FILE_H;
 
-} // namespace Core
+} // namespace core

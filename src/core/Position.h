@@ -7,7 +7,7 @@
 
 #include <string>
 
-namespace Core {
+namespace core {
 /**
  * @brief Position class for representing chess piece placement
  *
@@ -36,4 +36,4 @@ public:
   bool operator!=(const Position &other) const;
 };
 
-} // namespace Core
+} // namespace core

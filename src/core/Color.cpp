@@ -1,9 +1,9 @@
 #include "Color.h"
 
-const std::string Core::Color::toString() const {
+const std::string core::Color::toString() const {
     return (m_value == WHITE) ? "White" : "Black";
 }
 
-const char Core::Color::toLetter() const {
+const char core::Color::toLetter() const {
     return (m_value == WHITE) ? 'w' : 'b';
 }
