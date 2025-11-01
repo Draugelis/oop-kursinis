@@ -21,7 +21,7 @@ private:
 
 public:
   // Constructors
-  Position(int rank, int file);
+  Position(int rank, int file) : m_nRank(rank), m_nFile(file) {};
   Position(int index); // from bitboard index
   // Getters
   int getRank() const;

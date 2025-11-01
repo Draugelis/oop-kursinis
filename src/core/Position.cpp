@@ -1,8 +1,6 @@
 #include "Position.h"
 #include "Constants.h"
 
-core::Position::Position(int rank, int file) : m_nRank(rank), m_nFile(file) {}
-
 /**
  * @brief Construct a Position from a bitboard index
  *
