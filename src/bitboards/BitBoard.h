@@ -40,6 +40,7 @@ public:
   // Bitwise operator overloads
   BitBoard operator|(const BitBoard &other) const; // OR
   BitBoard operator&(const BitBoard &other) const; // AND
+  BitBoard operator|=(const BitBoard &other);      // Compound assignment
   BitBoard operator~() const;                      // NOT
   BitBoard operator<<(int shift) const;            // Shift left
   BitBoard operator>>(int shift) const;            // Shift right

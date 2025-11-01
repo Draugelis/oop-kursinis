@@ -151,3 +151,15 @@ bitboards::BitBoard bitboards::BitBoard::operator<<(int shift) const {
 bitboards::BitBoard bitboards::BitBoard::operator>>(int shift) const {
   return BitBoard(m_ullBits >> shift);
 }
+
+/**
+ * @brief Compound assignment operation for BitBoard
+ *
+ * @param other second BitBoard operand
+ * @return bitboards::BitBoard
+ */
+bitboards::BitBoard
+bitboards::BitBoard::operator|=(const bitboards::BitBoard &other) {
+  m_ullBits |= other.m_ullBits;
+  return *this;
+}
