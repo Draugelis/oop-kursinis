@@ -9,6 +9,7 @@
 #include <cstdint> // for uint64_t
 #include <vector>
 
+namespace bitboards {
 /**
  * @brief BitBoard representation class
  *
@@ -19,7 +20,6 @@
  * @note Each piece type and color combination has its own bitboard
  * @see https://www.chessprogramming.org/Bitboards
  */
-namespace bitboards {
 class BitBoard {
 private:
   uint64_t m_ullBits;
