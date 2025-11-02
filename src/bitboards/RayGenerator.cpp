@@ -1,5 +1,6 @@
 #include "RayGenerator.h"
 
+namespace bitboards {
 /**
  * @brief Cast a ray in a specified direction until blocked
  *
@@ -8,9 +9,9 @@
  * @param dir Direction to cast the ray
  * @return BitBoard of all squares along the ray (including blocking piece)
  */
-bitboards::BitBoard bitboards::RayGenerator::castRay(
-    core::Position pos, const bitboards::BitBoard &occupancy, Direction dir) {
-  bitboards::BitBoard attacks;
+BitBoard RayGenerator::castRay(core::Position pos, const BitBoard &occupancy,
+                               Direction dir) {
+  BitBoard attacks;
   int index = pos.toIndex();
   const int offset = static_cast<int>(dir); // Get offset from direction enum
   const int maxSteps = getMaxSteps(pos, dir);
@@ -34,7 +35,7 @@ bitboards::BitBoard bitboards::RayGenerator::castRay(
  * @param dir Movement direction
  * @return int Number of maximum steps
  */
-int bitboards::RayGenerator::getMaxSteps(core::Position pos, Direction dir) {
+int RayGenerator::getMaxSteps(core::Position pos, Direction dir) {
   const int rank = pos.getRank();
   const int file = pos.getFile();
 
@@ -58,3 +59,4 @@ int bitboards::RayGenerator::getMaxSteps(core::Position pos, Direction dir) {
   }
   return 0;
 }
+} // namespace bitboards

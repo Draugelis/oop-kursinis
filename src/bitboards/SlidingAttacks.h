@@ -1,7 +1,7 @@
 /**
  * @file SlidingAttacks.h
  * @brief Utility for calculating sliding pieces attacks
- * 
+ *
  */
 #pragma once
 
@@ -11,7 +11,7 @@
 namespace bitboards {
 /**
  * @brief Responsible for calculating available attack bitboards
- * 
+ *
  */
 class SlidingAttacks {
 public:
@@ -19,4 +19,4 @@ public:
   static BitBoard rook(const core::Position &pos, const BitBoard &occupancy);
   static BitBoard queen(const core::Position &pos, const BitBoard &occupancy);
 };
-}
+} // namespace bitboards

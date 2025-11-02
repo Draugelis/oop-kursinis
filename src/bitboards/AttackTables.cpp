@@ -2,12 +2,13 @@
 #include "Direction.h"
 #include "core/Constants.h"
 
+namespace bitboards {
 /**
  * @brief Generates Knight attack bitboards for all 64 squares
  *
  * Knight moves in a L share (2+1 squares in any direction)
  */
-void bitboards::AttackTables::generateKnightAttacks() {
+void AttackTables::generateKnightAttacks() {
   const int knightIndexOffsets[8] = {
       2 * Direction::NORTH + Direction::EAST,
       2 * Direction::NORTH + Direction::WEST,
@@ -56,7 +57,7 @@ void bitboards::AttackTables::generateKnightAttacks() {
  *
  * King moves to all directions 1 square away
  */
-void bitboards::AttackTables::generateKingAttacks() {
+void AttackTables::generateKingAttacks() {
   constexpr Direction kingDirections[8] = {
       Direction::NORTH,      Direction::SOUTH,      Direction::EAST,
       Direction::WEST,       Direction::NORTH_EAST, Direction::NORTH_WEST,
@@ -105,7 +106,7 @@ void bitboards::AttackTables::generateKingAttacks() {
  * special case for en passant.
  *
  */
-void bitboards::AttackTables::generatePawnAttacks() {
+void AttackTables::generatePawnAttacks() {
   for (int index = 0; index < core::TOTAL_SQUARES; index++) {
     BitBoard whiteAttacks;
     BitBoard blackAttacks;
@@ -138,7 +139,7 @@ void bitboards::AttackTables::generatePawnAttacks() {
   }
 }
 
-void bitboards::AttackTables::initialize() {
+void AttackTables::initialize() {
   generateKnightAttacks();
   generateKingAttacks();
   generatePawnAttacks();
@@ -149,10 +150,10 @@ void bitboards::AttackTables::initialize() {
  * @brief Get attack bitboard for piece at position
  *
  * @param pos Current position
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard
-bitboards::AttackTables::getKnightAttacks(const core::Position &pos) {
+BitBoard
+AttackTables::getKnightAttacks(const core::Position &pos) {
   return s_arrKnightAttacks[pos.toIndex()];
 }
 
@@ -160,10 +161,10 @@ bitboards::AttackTables::getKnightAttacks(const core::Position &pos) {
  * @brief Get attack bitboard for piece at position
  *
  * @param pos Current position
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard
-bitboards::AttackTables::getKingAttacks(const core::Position &pos) {
+BitBoard
+AttackTables::getKingAttacks(const core::Position &pos) {
   return s_arrKingAttacks[pos.toIndex()];
 }
 
@@ -172,11 +173,12 @@ bitboards::AttackTables::getKingAttacks(const core::Position &pos) {
  *
  * @param pos Current position
  * @param color Pawn's color
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard
-bitboards::AttackTables::getPawnAttacks(const core::Position &pos,
+BitBoard
+AttackTables::getPawnAttacks(const core::Position &pos,
                                         core::Color color) {
   return (color == core::Color::WHITE) ? s_arrPawnAttacksWhite[pos.toIndex()]
                                        : s_arrPawnAttacksBlack[pos.toIndex()];
 }
+} // namespace bitboards

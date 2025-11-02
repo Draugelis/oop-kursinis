@@ -2,6 +2,7 @@
 #include "core/Constants.h"
 #include <stdexcept> // for runtime_error
 
+namespace bitboards {
 /**
  * @brief Checks whether a bit in a position is set
  *
@@ -9,7 +10,7 @@
  * @return true If bit in a position is set (1)
  * @return false If bit in a position is not set (0)
  */
-bool bitboards::BitBoard::isSet(const core::Position &pos) const {
+bool BitBoard::isSet(const core::Position &pos) const {
   return m_ullBits & (1ULL << pos.toIndex());
 }
 
@@ -20,16 +21,14 @@ bool bitboards::BitBoard::isSet(const core::Position &pos) const {
  * @return true If bit at index is set (1)
  * @return false If bit at index is not set (0)
  */
-bool bitboards::BitBoard::isSet(int index) const {
-  return m_ullBits & (1ULL << index);
-}
+bool BitBoard::isSet(int index) const { return m_ullBits & (1ULL << index); }
 
 /**
  * @brief Returns unsigned long int for a bitboard
  *
  * @return uint64_t BitBoard representation
  */
-uint64_t bitboards::BitBoard::getBits() const { return m_ullBits; }
+uint64_t BitBoard::getBits() const { return m_ullBits; }
 
 /**
  * @brief Finds a position of the first set bit in the bitboard
@@ -38,7 +37,7 @@ uint64_t bitboards::BitBoard::getBits() const { return m_ullBits; }
  *
  * @return core::Position of a first set bit
  */
-core::Position bitboards::BitBoard::getFirstSetBit() const {
+core::Position BitBoard::getFirstSetBit() const {
   if (m_ullBits == 0) {
     throw std::runtime_error("no bits are set in the bitboard");
   }
@@ -54,7 +53,7 @@ core::Position bitboards::BitBoard::getFirstSetBit() const {
  *
  * @return std::vector<core::Position> Vector with all set positions
  */
-std::vector<core::Position> bitboards::BitBoard::getSetBitPositions() const {
+std::vector<core::Position> BitBoard::getSetBitPositions() const {
   std::vector<core::Position> result;
 
   // check all indices
@@ -75,7 +74,7 @@ std::vector<core::Position> bitboards::BitBoard::getSetBitPositions() const {
  *
  * @param pos core::Position
  */
-void bitboards::BitBoard::setBit(const core::Position &pos) {
+void BitBoard::setBit(const core::Position &pos) {
   m_ullBits |= (1ULL << pos.toIndex());
 }
 
@@ -87,10 +86,7 @@ void bitboards::BitBoard::setBit(const core::Position &pos) {
  *
  * @param pos core::Position
  */
-void bitboards::BitBoard::setBit(int index) {
-  m_ullBits |= (1ULL << index);
-}
-
+void BitBoard::setBit(int index) { m_ullBits |= (1ULL << index); }
 
 /**
  * @brief Sets a bit to 0 in a given position
@@ -100,7 +96,7 @@ void bitboards::BitBoard::setBit(int index) {
  *
  * @param pos core::Position
  */
-void bitboards::BitBoard::clearBit(const core::Position &pos) {
+void BitBoard::clearBit(const core::Position &pos) {
   m_ullBits &= ~(1ULL << pos.toIndex());
 }
 
@@ -111,10 +107,9 @@ void bitboards::BitBoard::clearBit(const core::Position &pos) {
  * Bitwise operation is done with m_ullBits members of both bitboards
  *
  * @param other second BitBoard operand
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard
-bitboards::BitBoard::operator|(const bitboards::BitBoard &other) const {
+BitBoard BitBoard::operator|(const BitBoard &other) const {
   return BitBoard(m_ullBits | other.m_ullBits);
 }
 
@@ -125,10 +120,9 @@ bitboards::BitBoard::operator|(const bitboards::BitBoard &other) const {
  * Bitwise operation is done with m_ullBits members of both bitboards
  *
  * @param other second BitBoard operand
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard
-bitboards::BitBoard::operator&(const bitboards::BitBoard &other) const {
+BitBoard BitBoard::operator&(const BitBoard &other) const {
   return BitBoard(m_ullBits & other.m_ullBits);
 }
 
@@ -137,21 +131,20 @@ bitboards::BitBoard::operator&(const bitboards::BitBoard &other) const {
  *
  * Bitwise operation is done with m_ullBits member
  *
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard bitboards::BitBoard::operator~() const {
-  return BitBoard(~m_ullBits);
-}
+BitBoard BitBoard::operator~() const { return BitBoard(~m_ullBits); }
 
 /**
  * @brief Shift-left bitwise operation for BitBoard
  *
  * Bitwise operation is done with m_ullBits member
  *
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard bitboards::BitBoard::operator<<(int shift) const {
-  return shift > 0 ? BitBoard(m_ullBits << shift) : BitBoard(m_ullBits >> shift) ;
+BitBoard BitBoard::operator<<(int shift) const {
+  return shift > 0 ? BitBoard(m_ullBits << shift)
+                   : BitBoard(m_ullBits >> shift);
 }
 
 /**
@@ -159,20 +152,21 @@ bitboards::BitBoard bitboards::BitBoard::operator<<(int shift) const {
  *
  * Bitwise operation is done with m_ullBits member
  *
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard bitboards::BitBoard::operator>>(int shift) const {
-  return shift > 0 ? BitBoard(m_ullBits >> shift) : BitBoard(m_ullBits << shift) ;
+BitBoard BitBoard::operator>>(int shift) const {
+  return shift > 0 ? BitBoard(m_ullBits >> shift)
+                   : BitBoard(m_ullBits << shift);
 }
 
 /**
  * @brief Compound assignment operation for BitBoard
  *
  * @param other second BitBoard operand
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard
-bitboards::BitBoard::operator|=(const bitboards::BitBoard &other) {
+BitBoard BitBoard::operator|=(const BitBoard &other) {
   m_ullBits |= other.m_ullBits;
   return *this;
 }
+} // namespace bitboards

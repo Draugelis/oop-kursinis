@@ -1,15 +1,15 @@
 #include "Manager.h"
 
+namespace bitboards {
 /**
  * @brief Retrieves BitBoard for a piece type of a color
  *
  * @param color core::Color Piece color value for a piece
  * @param type core::PieceType Piece type value for a piece
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard
-bitboards::Manager::getPieceBitBoard(core::Color color,
-                                     core::PieceType type) const {
+BitBoard Manager::getPieceBitBoard(core::Color color,
+                                   core::PieceType type) const {
   int index = static_cast<int>(type);
 
   if (color == core::Color::WHITE) {
@@ -22,10 +22,9 @@ bitboards::Manager::getPieceBitBoard(core::Color color,
  * @brief Retrieves BitBoard for all pieces occupancy of all colors
  *
  * @param color core::Color Piece color value for a piece
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard
-bitboards::Manager::getColorOccupancy(core::Color color) const {
+BitBoard Manager::getColorOccupancy(core::Color color) const {
   if (color == core::Color::WHITE) {
     return m_whiteOccupancy;
   }
@@ -35,9 +34,9 @@ bitboards::Manager::getColorOccupancy(core::Color color) const {
 /**
  * @brief Retrieves BitBoard for all pieces occupancy of a color
  *
- * @return bitboards::BitBoard
+ * @return BitBoard
  */
-bitboards::BitBoard bitboards::Manager::getAllOccupancy() const {
+BitBoard Manager::getAllOccupancy() const {
   return m_whiteOccupancy | m_blackOccupancy;
 }
 
@@ -50,8 +49,8 @@ bitboards::BitBoard bitboards::Manager::getAllOccupancy() const {
  * @param color core::Color piece's color
  * @param type core::PieceType piece's type
  */
-void bitboards::Manager::setPiece(const core::Position &pos, core::Color color,
-                                  core::PieceType type) {
+void Manager::setPiece(const core::Position &pos, core::Color color,
+                       core::PieceType type) {
   int index = static_cast<int>(type);
 
   if (color == core::Color::WHITE) {
@@ -72,8 +71,8 @@ void bitboards::Manager::setPiece(const core::Position &pos, core::Color color,
  * @param color core::Color piece's color
  * @param type core::PieceType piece's type
  */
-void bitboards::Manager::clearPiece(const core::Position &pos,
-                                    core::Color color, core::PieceType type) {
+void Manager::clearPiece(const core::Position &pos, core::Color color,
+                         core::PieceType type) {
   int index = static_cast<int>(type);
 
   if (color == core::Color::WHITE) {
@@ -93,9 +92,8 @@ void bitboards::Manager::clearPiece(const core::Position &pos,
  * @param color core::Color piece's color
  * @param type core::PieceType piece's type
  */
-void bitboards::Manager::movePiece(const core::Position &from,
-                                   const core::Position &to, core::Color color,
-                                   core::PieceType type) {
+void Manager::movePiece(const core::Position &from, const core::Position &to,
+                        core::Color color, core::PieceType type) {
   clearPiece(from, color, type);
   setPiece(to, color, type);
 }
@@ -105,10 +103,10 @@ void bitboards::Manager::movePiece(const core::Position &from,
  *
  * Occupancy bitboards are reset and recreated after setting or clearing bits
  */
-void bitboards::Manager::updateOccupancy() {
+void Manager::updateOccupancy() {
   // Reset occupancies
-  m_whiteOccupancy = bitboards::BitBoard();
-  m_blackOccupancy = bitboards::BitBoard();
+  m_whiteOccupancy = BitBoard();
+  m_blackOccupancy = BitBoard();
 
   // Re-populate occupancy bitboards
   for (int i = 0; i < core::NUM_PIECE_TYPES; i++) {
@@ -116,3 +114,4 @@ void bitboards::Manager::updateOccupancy() {
     m_blackOccupancy |= m_blackPieces[i];
   }
 }
+} // namespace bitboards

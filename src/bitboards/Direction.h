@@ -22,7 +22,8 @@ enum class Direction : int {
   SOUTH_WEST = -9  // SOUTH + WEST
 };
 
-// Arithmetic operators to enable expressions like: 2*Direction::NORTH + Direction::EAST
+// Arithmetic operators to enable expressions like: 2*Direction::NORTH +
+// Direction::EAST
 
 /**
  * @brief Multiply direction by number
