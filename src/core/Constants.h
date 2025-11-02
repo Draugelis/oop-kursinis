@@ -3,6 +3,7 @@
  * @brief Constant values used across the chess game
  *
  */
+#pragma once
 
 namespace core {
 // Board dimensions
