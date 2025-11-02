@@ -6,8 +6,8 @@
 #pragma once
 
 #include "bitboards/BitBoard.h"
-#include "bitboards/Manager.h"
 #include "core/Color.h"
+#include "core/Constants.h"
 #include "core/Position.h"
 #include <array>
 
@@ -29,9 +29,9 @@ private:
   static std::array<BitBoard, core::TOTAL_SQUARES> s_arrPawnAttacksBlack;
 
   static bool s_bInitialized;
-  static void initializeKnightAttacks();
-  static void initializeKingAttacks();
-  static void initializePawnAttacks();
+  static void generateKnightAttacks();
+  static void generateKingAttacks();
+  static void generatePawnAttacks();
 
 public:
   static void initialize();
