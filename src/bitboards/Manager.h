@@ -1,5 +1,5 @@
 /**
- * @file BitBoardManager.h
+ * @file Manager.h
  * @brief BitBoard Manager class implementation
  *
  */
@@ -16,10 +16,10 @@ namespace bitboards {
 /**
  * @brief Manages BitBoards for all pieces
  *
- * BitBoardManager tracks all pieces' bitboards and
+ * Manager tracks all pieces' bitboards and
  * implements methods to manipulate them
  */
-class BitBoardManager {
+class Manager {
 private:
   // Separate BitBoards for each color to denote occupancy for each piece type
   std::array<BitBoard, core::NUM_PIECE_TYPES> m_whitePieces;
@@ -32,7 +32,7 @@ private:
   void updateOccupancy();
 
 public:
-  BitBoardManager() = default;
+  Manager() = default;
   // Getters
   BitBoard getPieceBitBoard(core::Color color, core::PieceType type) const;
   BitBoard getColorOccupancy(core::Color color) const;
