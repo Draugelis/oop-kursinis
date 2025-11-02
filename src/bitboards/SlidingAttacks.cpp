@@ -1,5 +1,6 @@
 #include "SlidingAttacks.h"
-#include "bitboards/RayGenerator.h"
+#include "RayGenerator.h"
+#include "Direction.h"
 
 /**
  * @brief Get bishop attack bitboard on diagonals
