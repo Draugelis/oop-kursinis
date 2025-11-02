@@ -36,6 +36,7 @@ public:
   std::vector<core::Position> getSetBitPositions() const;
   // Setters
   void setBit(const core::Position &pos);
+  void setBit(int index);
   void clearBit(const core::Position &pos);
   // Bitwise operator overloads
   BitBoard operator|(const BitBoard &other) const; // OR

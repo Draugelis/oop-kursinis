@@ -80,6 +80,19 @@ void bitboards::BitBoard::setBit(const core::Position &pos) {
 }
 
 /**
+ * @brief Sets a bit to 1 in a given index
+ *
+ * Uses OR operation with mask where 1 is set at the target position index,
+ * other bits are set to 0 to leave values unchanged
+ *
+ * @param pos core::Position
+ */
+void bitboards::BitBoard::setBit(int index) {
+  m_ullBits |= (1ULL << index);
+}
+
+
+/**
  * @brief Sets a bit to 0 in a given position
  *
  * Uses AND operation with mask where 0 is set at the target position index,
