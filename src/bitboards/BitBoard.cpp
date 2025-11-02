@@ -138,7 +138,7 @@ bitboards::BitBoard bitboards::BitBoard::operator~() const {
  * @return bitboards::BitBoard
  */
 bitboards::BitBoard bitboards::BitBoard::operator<<(int shift) const {
-  return BitBoard(m_ullBits << shift);
+  return shift > 0 ? BitBoard(m_ullBits << shift) : BitBoard(m_ullBits >> shift) ;
 }
 
 /**
@@ -149,7 +149,7 @@ bitboards::BitBoard bitboards::BitBoard::operator<<(int shift) const {
  * @return bitboards::BitBoard
  */
 bitboards::BitBoard bitboards::BitBoard::operator>>(int shift) const {
-  return BitBoard(m_ullBits >> shift);
+  return shift > 0 ? BitBoard(m_ullBits >> shift) : BitBoard(m_ullBits << shift) ;
 }
 
 /**
