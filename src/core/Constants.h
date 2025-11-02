@@ -14,13 +14,6 @@ constexpr int NUM_RANKS = BOARD_SIZE;
 // Bitboard bit offsets
 constexpr int PAWN_PUSH_BIT_OFFSET = 8;
 
-// Ray casting shifting offsets
-// https://www.chessprogramming.org/General_Setwise_Operations#ShiftingBitboards
-constexpr int RAY_NORTH = 8;
-constexpr int RAY_EAST = 1;
-constexpr int RAY_SOUTH = -8;
-constexpr int RAY_WEST = -1;
-
 // Piece counts
 constexpr int NUM_PIECE_TYPES = 6;
 constexpr int MAX_PIECES_PER_COLOR = 16;
