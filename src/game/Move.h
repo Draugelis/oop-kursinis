@@ -21,14 +21,19 @@ namespace game {
  */
 class Move {
 private:
+  // Starting position
   core::Position m_from;
+  // Destination position
   core::Position m_to;
+  // Piece type that moves
   core::PieceType m_pieceType;
+  // Move type (normal, capture, castle, etc.)
   MoveType m_type;
-  // Move outcome flags
+  // Whether the move result in check
   bool m_bIsCheck;
+  // Whether the move result in checkmate
   bool m_bIsCheckmate;
-  // Special for pawn
+  // Pawn promotion piece
   std::optional<core::PieceType> m_promotionPiece;
 
 public:
@@ -41,29 +46,45 @@ public:
   Move(core::Position from, core::Position to, core::PieceType pieceType,
        MoveType type, core::PieceType promotionPiece);
 
-  // Getters
+  // Get starting position
   core::Position getFrom() const;
+  // Get destination position
   core::Position getTo() const;
+  // Get piece type that moves
   core::PieceType getPieceType() const;
+  // Get move type
   MoveType getType() const;
+  // Get pawn promotion type
   std::optional<core::PieceType> getPromotionPiece() const;
+  // Check if move is capture type
   bool isCapture() const;
+  // Check if move is castling type
   bool isCastling() const;
+  // Check if move is en passant type
   bool isEnPassant() const;
+  // Check if move is promotion type
   bool isPromotion() const;
+  // Check if move is check type
   bool isCheck() const;
+  // Check if move is checkmate type
   bool isCheckmate() const;
 
-  // Setters
+  // Set move type
   void setType(MoveType type);
-  void setCapture(bool capture);
-  void setCastling(bool castling);
-  void setEnPassant(bool enPassant);
-  void setPromotion(core::PieceType promotionPiece);
-  void setCheck(bool check);
-  void setCheckmate(bool checkmate);
+  // Set capture move type
+  void setCapture();
+  // Set castling move type
+  void setCastling(bool kingside);
+  // Set en passant move type
+  void setEnPassant();
+  // Set promotion move type and piece
+  void setPromotion(core::PieceType promotionPiece, bool capture = false);
+  // Set move as resulting in check
+  void setCheck();
+  // Set move as resulting in checkmate
+  void setCheckmate();
 
-  // Notation getter
+  // Convert move to algebraic notation
   std::string toAlgebraic() const;
 };
 } // namespace game
