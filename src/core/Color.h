@@ -30,6 +30,7 @@ public:
   // prevent usage: if(color)
   explicit operator bool() = delete;
 
+  const Color opposite() const;
   const std::string toString() const;
   const char toLetter() const;
 
