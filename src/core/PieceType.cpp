@@ -1,7 +1,8 @@
 #include "PieceType.h"
-#include <stdexcept>  // for invalid_argument exception
+#include <stdexcept> // for invalid_argument exception
 
-const std::string core::PieceType::toString() const {
+namespace core {
+const std::string PieceType::toString() const {
   switch (m_value) {
   case PAWN:
     return "Pawn";
@@ -20,7 +21,7 @@ const std::string core::PieceType::toString() const {
   }
 }
 
-char core::PieceType::getLetter() const {
+char PieceType::getLetter() const {
   switch (m_value) {
   case PAWN:
     return 'P';
@@ -39,7 +40,7 @@ char core::PieceType::getLetter() const {
   }
 }
 
-core::PieceType core::PieceType::fromChar(char c) {
+PieceType PieceType::fromChar(char c) {
   switch (std::tolower(c)) {
   case 'p':
     return PAWN;
@@ -58,3 +59,4 @@ core::PieceType core::PieceType::fromChar(char c) {
                                 std::string(1, c));
   }
 }
+} // namespace core
