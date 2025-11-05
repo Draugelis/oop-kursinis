@@ -2,6 +2,11 @@
 #include <stdexcept> // for invalid_argument exception
 
 namespace core {
+/**
+ * @brief Get a string representation of the piece type
+ * 
+ * @return const std::string 
+ */
 const std::string PieceType::toString() const {
   switch (m_value) {
   case PAWN:
@@ -21,7 +26,12 @@ const std::string PieceType::toString() const {
   }
 }
 
-char PieceType::getLetter() const {
+/**
+ * @brief Get a letter associated with a piece type
+ * 
+ * @return char 
+ */
+const char PieceType::getLetter() const {
   switch (m_value) {
   case PAWN:
     return 'P';
@@ -40,6 +50,15 @@ char PieceType::getLetter() const {
   }
 }
 
+/**
+ * @brief Translate piece letter into a PieceType
+ *
+ * Why did I add this? is it even used?
+ * TODO: Evaluate whether this method is really needed and remove if not.
+ *
+ * @param c Piece letter
+ * @return PieceType
+ */
 PieceType PieceType::fromChar(char c) {
   switch (std::tolower(c)) {
   case 'p':
@@ -58,5 +77,18 @@ PieceType PieceType::fromChar(char c) {
     throw std::invalid_argument("invalid piece character: " +
                                 std::string(1, c));
   }
+}
+
+/**
+ * @brief Return all PieceTypes for iteration
+ *
+ * Naively assuming that ordering will not change in the main enum nor here. I
+ * could, and probably should, do an iterator pattern but this is good enough
+ * for my use case (watch this haunt me later)
+ *
+ * @return std::vector<PieceType>
+ */
+std::vector<PieceType> PieceType::allTypes() {
+  return {PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING};
 }
 } // namespace core

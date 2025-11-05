@@ -6,6 +6,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 namespace core {
 /**
@@ -36,9 +37,14 @@ public:
   // prevent usage: if(pieceType)
   explicit operator bool() = delete;
 
+  // Get a string representation of the piece type
   const std::string toString() const;
-  char getLetter() const;
+  // Get a letter associated with a piece type
+  const char getLetter() const;
+  // Translate piece letter into a PieceType
   static PieceType fromChar(char c);
+  // Return all Piece Types in enum
+  static std::vector<PieceType> allTypes();
 
 private:
   Value m_value;
