@@ -36,6 +36,8 @@ public:
   
   // Place a piece at the position
   void placePiece(core::Position pos, core::PieceType type, core::Color color);
+  // Place a piece at the position
+  void placePiece(core::Position pos, pieces::Piece &piece);
   // Remove a piece from a position
   void removePiece(core::Position pos);
   // Move a piece from a given position to a new one
