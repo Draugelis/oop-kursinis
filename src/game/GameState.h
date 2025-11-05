@@ -28,45 +28,79 @@ namespace game {
  */
 class GameState {
 private:
+  // BitBoard Manager for bitboard interactions
   bitboards::Manager m_bitboards;
+  // Adapter for UI layer querying the board
   Board m_board;
+  // Psedo-legal move generator
   MoveGenerator m_moveGenerator;
+  // Move validation for filtering legal moves
   MoveValidator m_moveValidator;
+  // Castling rights tracking
   CastlingRights m_castlingRights;
+  // En Passant target piece
   std::optional<core::Position> m_enPassantTarget;
+  // Current turn
   core::Color m_sideToMove;
+  // Half move counter for detecting draws by 50 move rule
   int m_nHalfMoveClock;
+  // Full move counter
   int m_nFullMoveNumber;
-  std::vector<Move> m_moveHistory;
+  // Move history tracking
+  std::vector<Move> m_moveHistory; 
 
+  // Save the move
   void applyMove(const Move &move);
+  // Update Castling Rights
   void updateCastlingRights(const Move &move);
+  // Update En Passant Target
   void updateEnPassantTarget(const Move &move);
+  // Change turn player
   void switchTurn();
+  // Update half and full move counters
   void updateMoveCounter(const Move &move);
+  // Check game outcome
   GameOutcome calculateOutcome() const;
+  // Create move context object for move generation and validation
   MoveContext createMoveContext() const;
 
 public:
+  // Default constructor
   GameState();
 
+  // Reset Game State to initial position
   void reset();
+  // Populate board based on FEN (Forsyth-Edwards Notation).
+  // See https://www.chess.com/terms/fen-chess
   void loadFEN(const std::string &fen);
 
+  // Get mutable board reference
   Board &getBoard();
+  // Get immutable board reference
   const Board &getBoard() const;
+  // Get mutable castling rights
   CastlingRights &getCastlingRights();
+  // Get immutable castling rights
   const CastlingRights &getCastlingRights() const;
+  // Get current move side
   core::Color getSideToMove() const;
+  // Get en passant target
   std::optional<core::Position> getEnPassantTarget() const;
+  // Get half move clock value
   int getHalfMoveClock() const;
+  // Get move number
   int getFullMoveNumber() const;
+  // Get game outcome (or if it is still in progress)
   GameOutcome getOutcome() const;
 
+  // Get legal moves for the whole board
   std::vector<Move> getLegalMoves() const;
+  // Get legal moves from a position
   std::vector<Move> getLegalMovesFrom(core::Position pos) const;
+  // Validate and execute the move
   bool tryMove(const Move &move);
 
+  // Get move history
   const std::vector<Move> &getMoveHistory() const;
 };
 } // namespace game

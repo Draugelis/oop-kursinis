@@ -14,13 +14,13 @@ namespace game {
 class MoveType {
 public:
   enum Value {
-    NORMAL,
-    CAPTURE,
-    CASTLE_KINGSIDE,
-    CASTLE_QUEENSIDE,
-    EN_PASSANT,
-    PROMOTION,
-    PROMOTION_CAPTURE
+    NORMAL,           // Normal move without captures or special conditions
+    CAPTURE,          // Normal capture move
+    CASTLE_KINGSIDE,  // Castling on the king side (O-O)
+    CASTLE_QUEENSIDE, // Castling on the queen side (O-O-O)
+    EN_PASSANT,       // Pawn en passant move
+    PROMOTION,        // Pawn promotion
+    PROMOTION_CAPTURE // Pawn capturing a piece and promoting
   };
   MoveType() = default;
   constexpr MoveType(Value value) : m_value(value) {}

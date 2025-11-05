@@ -22,6 +22,7 @@ namespace game {
  */
 class MoveGenerator {
 private:
+  // BitBoards Manager reference for querying the bitboards
   bitboards::Manager &m_bitboards;
 
   // Convert bitboard destinations to Move objects

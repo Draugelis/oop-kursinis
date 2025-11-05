@@ -18,16 +18,23 @@ namespace game {
  */
 class MoveContext {
 private:
+  // Castling Rights object reference
   const CastlingRights &m_castlingRights;
+  // En Passant target piece
   std::optional<core::Position> m_enPassant;
+  // Current color to move
   core::Color m_sideToMove;
 
 public:
+  // MoveContext constructor with all members to configure
   MoveContext(const CastlingRights &castling,
               std::optional<core::Position> enPassant, core::Color sideToMove);
 
+  // Get Castling Rights reference
   const CastlingRights &getCastlingRights() const;
+  // Get en passant target piece
   std::optional<core::Position> getEnPassant() const;
+  // Get the color for the current move
   core::Color getSideToMove() const;
 };
 } // namespace game
