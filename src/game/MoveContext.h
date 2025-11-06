@@ -4,6 +4,7 @@
  */
 #pragma once
 
+#include "bitboards/BitBoard.h"
 #include "core/Color.h"
 #include "core/Position.h"
 #include "game/CastlingRights.h"
@@ -24,6 +25,8 @@ private:
   std::optional<core::Position> m_enPassant;
   // Current color to move
   core::Color m_sideToMove;
+  // Board occupancy bitboard
+  bitboards::BitBoard m_occupancy;
 
 public:
   // MoveContext constructor with all members to configure
@@ -36,5 +39,7 @@ public:
   std::optional<core::Position> getEnPassant() const;
   // Get the color for the current move
   core::Color getSideToMove() const;
+  // Get te occupancy of all pieces on the board
+  bitboards::BitBoard getOccupancy() const;
 };
 } // namespace game

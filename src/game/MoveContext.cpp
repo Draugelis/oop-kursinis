@@ -39,4 +39,11 @@ std::optional<core::Position> MoveContext::getEnPassant() const {
  */
 core::Color MoveContext::getSideToMove() const { return m_sideToMove; }
 
+/**
+ * @brief Get te occupancy of all pieces on the board
+ *
+ * @return boards::BitBoard
+ */
+bitboards::BitBoard MoveContext::getOccupancy() const { return m_occupancy; }
+
 } // namespace game
