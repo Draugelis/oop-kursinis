@@ -32,7 +32,6 @@ class Piece {
 protected:
   core::Color m_color;
   core::PieceType m_type;
-  bool m_bHasMoved;
 
 public:
   /**
