@@ -127,6 +127,18 @@ BitBoard BitBoard::operator&(const BitBoard &other) const {
 }
 
 /**
+ * @brief XOR bitwise operation for BitBoard
+ *
+ * Bitwise operation is done with m_ullBits members of both bitboards
+ *
+ * @param other second BitBoard operand
+ * @return BitBoard
+ */
+BitBoard BitBoard::operator^(const BitBoard &other) const {
+  return BitBoard(m_ullBits ^ other.m_ullBits);
+}
+
+/**
  * @brief NOT bitwise operation for BitBoard
  *
  * Bitwise operation is done with m_ullBits member
@@ -169,4 +181,27 @@ BitBoard BitBoard::operator|=(const BitBoard &other) {
   m_ullBits |= other.m_ullBits;
   return *this;
 }
+
+/**
+ * @brief AND assignment operation for BitBoard
+ *
+ * @param other second BitBoard operand
+ * @return BitBoard
+ */
+BitBoard BitBoard::operator&=(const BitBoard &other) {
+  m_ullBits &= other.m_ullBits;
+  return *this;
+}
+
+/**
+ * @brief XOR assignment operation for BitBoard
+ *
+ * @param other second BitBoard operand
+ * @return BitBoard
+ */
+BitBoard BitBoard::operator^=(const BitBoard &other) {
+  m_ullBits ^= other.m_ullBits;
+  return *this;
+}
+
 } // namespace bitboards
