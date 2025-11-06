@@ -14,6 +14,6 @@ public:
 
   bitboards::BitBoard
   getMoveBitBoard(const core::Position &pos,
-                  const board::BoardState &board) const override;
+                  const game::MoveContext &context) const override;
 };
 } // namespace pieces
