@@ -21,14 +21,29 @@ King::getMoveBitBoard(const core::Position &pos,
 
   // Get current rank
   int rank = pos.getRank();
+
+  bitboards::BitBoard occupancy = context.getOccupancy();
+  // Check if for available path on the king side
+  bool kingsideClearPath =
+      !(occupancy.isSet(core::Position(rank, core::FILE_F)) ||
+        occupancy.isSet(core::Position(rank, core::FILE_G)));
+
   // Add castling on the king side
-  if (context.getCastlingRights().canCastleKingside(m_color)) {
+  if (context.getCastlingRights().canCastleKingside(m_color) &&
+      kingsideClearPath) {
     // Castling on king side -> move king to G file
     moves.setBit(core::Position(rank, core::FILE_G));
   }
 
+  // Check if for available path on the queen side
+  bool queensideClearPath =
+      !(occupancy.isSet(core::Position(rank, core::FILE_B)) ||
+        occupancy.isSet(core::Position(rank, core::FILE_C)) ||
+        occupancy.isSet(core::Position(rank, core::FILE_D)));
+
   // Add castling on the queen side
-  if (context.getCastlingRights().canCastleQueenside(m_color)) {
+  if (context.getCastlingRights().canCastleQueenside(m_color) &&
+      queensideClearPath) {
     // Castling on queen side -> move king to c file
     moves.setBit(core::Position(rank, core::FILE_C));
   }
