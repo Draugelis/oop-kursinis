@@ -49,13 +49,8 @@ public:
   core::Color getColor() const;
   // Get a piece type
   core::PieceType getType() const;
-  // Check if this piece has moved from its starting position
-  bool hasMoved() const;
   // Get the algebraic notation letter for this piece
   char getLetter() const;
-
-  // Mark piece as moved
-  void setMoved();
 
   /**
    * @brief Generates a bitboard of all valid move destinations for this piece
