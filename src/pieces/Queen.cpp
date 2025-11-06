@@ -12,7 +12,7 @@ namespace pieces {
  */
 bitboards::BitBoard
 Queen::getMoveBitBoard(const core::Position &pos,
-                      const game::MoveContext &context) const {
+                       const game::MoveContext &context) const {
   // Pass-through the attacks since there are no special moves
   return bitboards::AttackGenerator::getAttacks(m_type, pos, m_color,
                                                 context.getOccupancy());
