@@ -10,8 +10,8 @@
 #include "core/Color.h"
 #include "core/PieceType.h"
 
-namespace board {
-class BoardState;
+namespace game {
+class MoveContext;
 }
 namespace core {
 class Position;
@@ -43,18 +43,19 @@ public:
    * QUEEN, KING)
    */
   Piece(core::Color color, core::PieceType type);
-  /**
-   * @brief Virtual destructor
-   */
+  // Virtual destructor
   virtual ~Piece() = default;
 
-  // Getters
+  // Get a piece color
   core::Color getColor() const;
+  // Get a piece type
   core::PieceType getType() const;
+  // Check if this piece has moved from its starting position
   bool hasMoved() const;
+  // Get the algebraic notation letter for this piece
   char getLetter() const;
 
-  // Setter
+  // Mark piece as moved
   void setMoved();
 
   /**
@@ -64,11 +65,11 @@ public:
    * to from the given position.
    *
    * @param pos Current position of the piece on the board
-   * @param board Current state of the chess board
+   * @param context Current move context
    * @return BitBoard Bitboard with bits set for each valid destination square
    */
   virtual bitboards::BitBoard
   getMoveBitBoard(const core::Position &pos,
-                  const board::BoardState &board) const = 0;
+                  const game::MoveContext &context) const = 0;
 };
 } // namespace pieces
