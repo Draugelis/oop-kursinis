@@ -42,10 +42,11 @@ public:
   // Check if the move is legal
   bool isLegal(const Move &move, const MoveContext &context);
   // Check if a given color is currently in check
-  bool isInCheck(core::Color color);
+  bool isInCheck(core::Color color, const MoveContext &context);
   // Check if there are any legal moves (for stalemate)
-  bool hasLegalMoves(const MoveContext &context);
+  bool hasLegalMoves(const std::vector<Move> &moves,
+                     const MoveContext &context);
   // Check if a given position is attacked by a color
-  bool isSquareAttacked(const core::Position &pos, core::Color byColor);
+  bool isSquareAttacked(const core::Position &pos, const MoveContext &context);
 };
 } // namespace game
