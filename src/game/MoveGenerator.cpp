@@ -9,13 +9,16 @@ namespace game {
  * @param context Move context for additional details
  * @return std::vector<Move> Pseudo legal moves for all pieces
  */
-std::vector<Move> MoveGenerator::generateMoves(const MoveContext &context) {
+std::vector<Move>
+MoveGenerator::generateMoves(const MoveContext &context) const {
   std::vector<Move> moves;
 
   // Get current color's occupied tiles
-  bitboards::BitBoard currentOccupancy = m_bitboards.getColorOccupancy(context.getSideToMove());
+  bitboards::BitBoard currentOccupancy =
+      m_bitboards.getColorOccupancy(context.getSideToMove());
   // Get current occupancy positions
-  std::vector<core::Position> currentPositions = currentOccupancy.getSetBitPositions();
+  std::vector<core::Position> currentPositions =
+      currentOccupancy.getSetBitPositions();
 
   // Set up Board adapter
   Board board(m_bitboards);
@@ -24,7 +27,8 @@ std::vector<Move> MoveGenerator::generateMoves(const MoveContext &context) {
   for (core::Position pos : currentPositions) {
     // Get piece in the position
     auto piece = board.getPieceAt(pos);
-    if (!piece) continue;  // Skip if somehow there's no piece (shouldn't happen though)
+    if (!piece)
+      continue; // Skip if somehow there's no piece (shouldn't happen though)
 
     // Get all moves from the position
     std::vector<Move> pieceMoves = generatePieceMoves(pos, *piece, context);
@@ -49,7 +53,7 @@ std::vector<Move> MoveGenerator::generateMoves(const MoveContext &context) {
 std::vector<Move>
 MoveGenerator::generatePieceMoves(core::Position pos,
                                   const pieces::Piece &piece,
-                                  const MoveContext &context) {
+                                  const MoveContext &context) const {
   // retrieve move bitboards for a piece
   bitboards::BitBoard moveBitBoards = piece.getMoveBitBoard(pos, context);
 

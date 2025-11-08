@@ -30,9 +30,9 @@ public:
   explicit MoveGenerator(bitboards::Manager &bitboards)
       : m_bitboards(bitboards) {}
 
-  std::vector<Move> generateMoves(const MoveContext &context);
+  std::vector<Move> generateMoves(const MoveContext &context) const;
   std::vector<Move> generatePieceMoves(core::Position pos,
                                        const pieces::Piece &piece,
-                                       const MoveContext &context);
+                                       const MoveContext &context) const;
 };
 } // namespace game
