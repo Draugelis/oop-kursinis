@@ -53,9 +53,6 @@ const char PieceType::getLetter() const {
 /**
  * @brief Translate piece letter into a PieceType
  *
- * Why did I add this? is it even used?
- * TODO: Evaluate whether this method is really needed and remove if not.
- *
  * @param c Piece letter
  * @return PieceType
  */
