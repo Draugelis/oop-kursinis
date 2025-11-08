@@ -56,6 +56,8 @@ public:
   core::Position getTo() const;
   // Get piece type that moves
   core::PieceType getPieceType() const;
+  // Get move color
+  core::Color getColor() const;
   // Get move type
   MoveType getType() const;
   // Get pawn promotion type

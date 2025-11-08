@@ -73,6 +73,13 @@ core::Position Move::getTo() const { return m_to; }
 core::PieceType Move::getPieceType() const { return m_pieceType; }
 
 /**
+ * @brief Get color that moves
+ *
+ * @return core::PieceType
+ */
+core::Color Move::getColor() const { return m_color; }
+
+/**
  * @brief Get move type
  *
  * @return MoveType
