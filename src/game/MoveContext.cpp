@@ -10,9 +10,9 @@ namespace game {
  */
 MoveContext::MoveContext(const CastlingRights &castling,
                          std::optional<core::Position> enPassant,
-                         core::Color sideToMove)
+                         core::Color sideToMove, bitboards::BitBoard occupancy)
     : m_castlingRights(castling), m_enPassant(enPassant),
-      m_sideToMove(sideToMove) {}
+      m_sideToMove(sideToMove), m_occupancy(occupancy) {}
 
 /**
  * @brief Return Castling Rights reference

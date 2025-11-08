@@ -31,7 +31,8 @@ private:
 public:
   // MoveContext constructor with all members to configure
   MoveContext(const CastlingRights &castling,
-              std::optional<core::Position> enPassant, core::Color sideToMove);
+              std::optional<core::Position> enPassant, core::Color sideToMove,
+              bitboards::BitBoard occupancy);
 
   // Get Castling Rights reference
   const CastlingRights &getCastlingRights() const;
