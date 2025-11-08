@@ -19,7 +19,7 @@ BitBoard Manager::getPieceBitBoard(core::Color color,
 }
 
 /**
- * @brief Retrieves BitBoard for all pieces occupancy of all colors
+ * @brief Retrieves BitBoard for all pieces occupancy of a color
  *
  * @param color core::Color Piece color value for a piece
  * @return BitBoard
@@ -32,7 +32,7 @@ BitBoard Manager::getColorOccupancy(core::Color color) const {
 }
 
 /**
- * @brief Retrieves BitBoard for all pieces occupancy of a color
+ * @brief Retrieves BitBoard for all pieces occupancy of all colors
  *
  * @return BitBoard
  */
@@ -113,5 +113,19 @@ void Manager::updateOccupancy() {
     m_whiteOccupancy |= m_whitePieces[i];
     m_blackOccupancy |= m_blackPieces[i];
   }
+}
+
+/**
+ * @brief Clear all bitboards to a "zero" state
+ * 
+ */
+void Manager::clearAll() {
+  for (int i = 0; i < core::NUM_PIECE_TYPES; i++) {
+        m_whitePieces[i] = BitBoard(0);
+        m_blackPieces[i] = BitBoard(0);
+    }
+    
+    m_whiteOccupancy = BitBoard(0);
+    m_blackOccupancy = BitBoard(0);
 }
 } // namespace bitboards
