@@ -19,6 +19,9 @@ constexpr int PAWN_PUSH_BIT_OFFSET = 8;
 constexpr int NUM_PIECE_TYPES = 6;
 constexpr int MAX_PIECES_PER_COLOR = 16;
 
+// Game rules
+constexpr int MAX_HALFMOVE_CLOCK = 100;
+
 // Rank indices (1-8)
 constexpr int RANK_1 = 0;
 constexpr int RANK_2 = 1;

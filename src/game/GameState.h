@@ -38,7 +38,7 @@ private:
   MoveValidator m_moveValidator;
   // Castling rights tracking
   CastlingRights m_castlingRights;
-  // En Passant target piece
+  // En Passant target position
   std::optional<core::Position> m_enPassantTarget;
   // Current turn
   core::Color m_sideToMove;
@@ -47,7 +47,9 @@ private:
   // Full move counter
   int m_nFullMoveNumber;
   // Move history tracking
-  std::vector<Move> m_moveHistory; 
+  std::vector<Move> m_moveHistory;
+  // Game outcome/status
+  GameOutcome m_gameOutcome;
 
   // Save the move
   void applyMove(const Move &move);
@@ -59,17 +61,21 @@ private:
   void switchTurn();
   // Update half and full move counters
   void updateMoveCounter(const Move &move);
-  // Check game outcome
-  GameOutcome calculateOutcome() const;
+  // Update game status/outcome
+  void updateOutcome();
   // Create move context object for move generation and validation
   MoveContext createMoveContext() const;
 
 public:
   // Default constructor
   GameState();
+  // Custom FEN constructor
+  GameState(const std::string &fen);
 
-  // Reset Game State to initial position
+  // Reset Game State to an initial default position
   void reset();
+  // Reset Game State to an initial position with FEN
+  void reset(const std::string &fen);
   // Populate board based on FEN (Forsyth-Edwards Notation).
   // See https://www.chess.com/terms/fen-chess
   void loadFEN(const std::string &fen);
@@ -82,7 +88,7 @@ public:
   CastlingRights &getCastlingRights();
   // Get immutable castling rights
   const CastlingRights &getCastlingRights() const;
-  // Get current move side
+  // Get current move color
   core::Color getSideToMove() const;
   // Get en passant target
   std::optional<core::Position> getEnPassantTarget() const;
