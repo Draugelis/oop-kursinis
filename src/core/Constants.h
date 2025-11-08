@@ -45,4 +45,7 @@ constexpr int MAX_RANK = RANK_8;
 constexpr int MIN_FILE = FILE_A;
 constexpr int MAX_FILE = FILE_H;
 
+// Default board FEN notation
+constexpr char DEFAULT_BOARD_FEN[] =
+    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 } // namespace core
