@@ -10,7 +10,7 @@ namespace game {
  * @param color Player's color
  * @return core::Position King's position
  */
-core::Position MoveValidator::findKing(core::Color color) {
+core::Position MoveValidator::findKing(core::Color color) const {
   bitboards::BitBoard kingBitBoard =
       m_bitboards.getPieceBitBoard(color, core::PieceType::KING);
   // There can be only one king so first bit will suffice
@@ -29,7 +29,7 @@ core::Position MoveValidator::findKing(core::Color color) {
  * @return false If move doesn't leave king in check
  */
 bool MoveValidator::leavesKingInCheck(const Move &move,
-                                      const MoveContext &context) {
+                                      const MoveContext &context) const {
   core::Color color = context.getSideToMove();
   core::Color opponentColor = color.opposite();
 
@@ -95,7 +95,7 @@ bool MoveValidator::leavesKingInCheck(const Move &move,
  * @return false If casling is illegal
  */
 bool MoveValidator::isCastleLegal(const Move &move,
-                                  const MoveContext &context) {
+                                  const MoveContext &context) const {
 
   core::Color color = context.getSideToMove();
 
@@ -130,7 +130,7 @@ bool MoveValidator::isCastleLegal(const Move &move,
  */
 std::vector<Move>
 MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
-                                const MoveContext &context) {
+                                const MoveContext &context) const {
   std::vector<Move> legalMoves;
   // Simply check each move
   for (Move move : moves) {
@@ -149,7 +149,8 @@ MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
  * @return true If move is legal
  * @return false If move is illegal
  */
-bool MoveValidator::isLegal(const Move &move, const MoveContext &context) {
+bool MoveValidator::isLegal(const Move &move,
+                            const MoveContext &context) const {
   // Check if castling is legal
   if (move.isCastling()) {
     return isCastleLegal(move, context);
@@ -166,7 +167,8 @@ bool MoveValidator::isLegal(const Move &move, const MoveContext &context) {
  * @return true If color is in check
  * @return false If color is not in cehck
  */
-bool MoveValidator::isInCheck(core::Color color, const MoveContext &context) {
+bool MoveValidator::isInCheck(core::Color color,
+                              const MoveContext &context) const {
   // Just check whether king is currently attacked
   core::Position kingPos = findKing(color);
   return isSquareAttacked(kingPos, context);
@@ -181,7 +183,7 @@ bool MoveValidator::isInCheck(core::Color color, const MoveContext &context) {
  * @return false If player doesn't have legal moves
  */
 bool MoveValidator::hasLegalMoves(const std::vector<Move> &moves,
-                                  const MoveContext &context) {
+                                  const MoveContext &context) const {
   for (const Move &move : moves) {
     // Checking for at least one legal move
     if (isLegal(move, context)) {
@@ -201,7 +203,7 @@ bool MoveValidator::hasLegalMoves(const std::vector<Move> &moves,
  * @return false If square isn't attacked by opponent
  */
 bool MoveValidator::isSquareAttacked(const core::Position &pos,
-                                     const MoveContext &context) {
+                                     const MoveContext &context) const {
   // Opponent color
   core::Color enemyColor = context.getSideToMove().opposite();
   // Current board occupancy
