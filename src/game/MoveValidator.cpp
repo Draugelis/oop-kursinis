@@ -60,6 +60,8 @@ bool MoveValidator::leavesKingInCheck(const Move &move,
     if (capturedPiece) {
       capturedPieceType = capturedPiece->getType();
     }
+    // Remove captured piece
+    board.removePiece(*capturePiecePosition);
   }
 
   // Apply move
