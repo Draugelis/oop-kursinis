@@ -11,10 +11,11 @@ namespace game {
  * @param to Destination position
  * @param pieceType Piece type that moves
  */
-Move::Move(core::Position from, core::Position to, core::PieceType pieceType)
+Move::Move(core::Position from, core::Position to, core::PieceType pieceType,
+           core::Color color)
     : m_from(from), m_to(to), m_pieceType(pieceType), m_type(MoveType::NORMAL),
-      m_bIsCheck(false), m_bIsCheckmate(false), m_promotionPiece(std::nullopt) {
-}
+      m_color(color), m_bIsCheck(false), m_bIsCheckmate(false),
+      m_promotionPiece(std::nullopt) {}
 
 /**
  * @brief Construct a new Move object
@@ -27,10 +28,10 @@ Move::Move(core::Position from, core::Position to, core::PieceType pieceType)
  * @param type Move type
  */
 Move::Move(core::Position from, core::Position to, core::PieceType pieceType,
-           MoveType type)
+           core::Color color, MoveType type)
     : m_from(from), m_to(to), m_pieceType(pieceType), m_type(type),
-      m_bIsCheck(false), m_bIsCheckmate(false), m_promotionPiece(std::nullopt) {
-}
+      m_color(color), m_bIsCheck(false), m_bIsCheckmate(false),
+      m_promotionPiece(std::nullopt) {}
 
 /**
  * @brief Construct a new Move object
@@ -45,9 +46,9 @@ Move::Move(core::Position from, core::Position to, core::PieceType pieceType,
  * @param promotionPiece
  */
 Move::Move(core::Position from, core::Position to, core::PieceType pieceType,
-           MoveType type, core::PieceType promotionPiece)
+           core::Color color, MoveType type, core::PieceType promotionPiece)
     : m_from(from), m_to(to), m_pieceType(pieceType), m_type(type),
-      m_bIsCheck(false), m_bIsCheckmate(false),
+      m_color(color), m_bIsCheck(false), m_bIsCheckmate(false),
       m_promotionPiece(promotionPiece) {}
 
 /**

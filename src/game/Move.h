@@ -5,6 +5,7 @@
 #pragma once
 
 #include "MoveType.h"
+#include "core/Color.h"
 #include "core/PieceType.h"
 #include "core/Position.h"
 #include <optional>
@@ -29,6 +30,8 @@ private:
   core::PieceType m_pieceType;
   // Move type (normal, capture, castle, etc.)
   MoveType m_type;
+  // Color that moved
+  core::Color m_color;
   // Whether the move result in check
   bool m_bIsCheck;
   // Whether the move result in checkmate
@@ -38,13 +41,14 @@ private:
 
 public:
   // Basic constructor (type defaults to NORMAL)
-  Move(core::Position from, core::Position to, core::PieceType pieceType);
+  Move(core::Position from, core::Position to, core::PieceType pieceType,
+       core::Color color);
   // Move type constructor
   Move(core::Position from, core::Position to, core::PieceType pieceType,
-       MoveType type);
+       core::Color color, MoveType type);
   // Promotion constructor
   Move(core::Position from, core::Position to, core::PieceType pieceType,
-       MoveType type, core::PieceType promotionPiece);
+       core::Color color, MoveType type, core::PieceType promotionPiece);
 
   // Get starting position
   core::Position getFrom() const;

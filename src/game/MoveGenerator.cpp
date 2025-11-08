@@ -54,17 +54,18 @@ std::vector<Move>
 MoveGenerator::generatePieceMoves(core::Position pos,
                                   const pieces::Piece &piece,
                                   const MoveContext &context) const {
+  // Get current color
+  core::Color color = context.getSideToMove();
   // retrieve move bitboards for a piece
   bitboards::BitBoard moveBitBoards = piece.getMoveBitBoard(pos, context);
 
   // Filter out moves/attacks on friendly pieces
-  moveBitBoards &= ~m_bitboards.getColorOccupancy(piece.getColor());
+  moveBitBoards &= ~m_bitboards.getColorOccupancy(color);
 
   // Calculate attack bitboards
   // capture will be where opponent occupies a move target
   bitboards::BitBoard captureBitBoards =
-      moveBitBoards &
-      m_bitboards.getColorOccupancy(piece.getColor().opposite());
+      moveBitBoards & m_bitboards.getColorOccupancy(color.opposite());
 
   // Remove captures from move tables
   moveBitBoards &= ~captureBitBoards;
@@ -80,8 +81,8 @@ MoveGenerator::generatePieceMoves(core::Position pos,
     // Check for pawn promotion
     if (piece.getType() == core::PieceType::PAWN &&
         (destinationRank == core::RANK_8 || destinationRank == core::RANK_1)) {
-      moves.push_back(
-          Move(pos, moveDestination, piece.getType(), MoveType::PROMOTION));
+      moves.push_back(Move(pos, moveDestination, piece.getType(), color,
+                           MoveType::PROMOTION));
       continue; // Move added, carry on
     }
 
@@ -95,13 +96,13 @@ MoveGenerator::generatePieceMoves(core::Position pos,
                                     ? MoveType::CASTLE_KINGSIDE
                                     : MoveType::CASTLE_QUEENSIDE;
         moves.push_back(
-            Move(pos, moveDestination, piece.getType(), castlingSide));
+            Move(pos, moveDestination, piece.getType(), color, castlingSide));
         continue; // Move added, carry on
       }
     }
 
     // Normal moves for non-promotions and non-castling
-    moves.push_back(Move(pos, moveDestination, piece.getType()));
+    moves.push_back(Move(pos, moveDestination, piece.getType(), color));
   }
 
   for (core::Position attackDestination :
@@ -112,14 +113,14 @@ MoveGenerator::generatePieceMoves(core::Position pos,
     // Check for pawn promotion captures
     if (piece.getType() == core::PieceType::PAWN &&
         (destinationRank == core::RANK_8 || destinationRank == core::RANK_1)) {
-      moves.push_back(Move(pos, attackDestination, piece.getType(),
+      moves.push_back(Move(pos, attackDestination, piece.getType(), color,
                            MoveType::PROMOTION_CAPTURE));
       continue; // Move added, carry on
     }
 
     // Normal capture if not promotion capture or en passant
-    moves.push_back(
-        Move(pos, attackDestination, piece.getType(), MoveType::CAPTURE));
+    moves.push_back(Move(pos, attackDestination, piece.getType(), color,
+                         MoveType::CAPTURE));
   }
 
   // Handling pawn en passant since it is a special case
@@ -130,13 +131,13 @@ MoveGenerator::generatePieceMoves(core::Position pos,
     // epTarget - empty tile behind opponent pawn that double-pushed last turn
     core::Position epTarget = context.getEnPassant().value();
 
-    int moveDirection = (piece.getColor() == core::Color::WHITE) ? 1 : -1;
+    int moveDirection = (color == core::Color::WHITE) ? 1 : -1;
 
     // Check if pawn is 1 diagonal away from epTarget
     if ((abs(pos.getFile() - epTarget.getFile()) == 1) &&
         (pos.getRank() + moveDirection == epTarget.getRank())) {
       moves.push_back(
-          Move(pos, epTarget, piece.getType(), MoveType::EN_PASSANT));
+          Move(pos, epTarget, piece.getType(), color, MoveType::EN_PASSANT));
     }
   }
 
