@@ -1,12 +1,12 @@
 /**
- * @file StatusBar.qml
+ * @file StatusBarView.qml
  * @brief Simple status bar showing current turn and status
  *
  */
 import QtQuick 2.15
 
 Rectangle {
-  id: statusBar
+  id: statusBarView
 
   // Set externally
   property string currentTurn: "White" // White or Black
