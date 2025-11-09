@@ -6,7 +6,7 @@
 import QtQuick 2.15
 
 Rectangle {
-    id: square
+    id: squareView
 
     // Square colors
     readonly property string darkColor: "#B58863"
@@ -113,8 +113,8 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         onClicked: {
-            console.log("Clicked square:", square.row, square.col)
-            squareClicked(square.row, square.col) // Emit signal
+            console.log("Clicked square:", squareView.row, squareView.col)
+            squareClicked(squareView.row, squareView.col) // Emit signal
         }
     }
 }

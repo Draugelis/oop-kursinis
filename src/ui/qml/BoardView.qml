@@ -6,7 +6,7 @@
 import QtQuick 2.15
 
 Rectangle {
-  id: board
+  id: boardView
 
   // Properties set externally
   property var piecePositions: []
@@ -33,14 +33,14 @@ Rectangle {
         // Set up square props
         row: Math.floor(index / 8)
         col: index % 8
-        width: board.width / 8
+        width: boardView.width / 8
         isSelected: (row === selectedRow && col === selectedCol)
         showLegalMove: (legalMoveSquares[row] && legalMoveSquares[row][col]) || false
         pieceSvg: (piecePositions[row] && piecePositions[row][col]) || ""
         onSquareClicked: {
-          board.selectedRow = row
-          board.selectedCol = col
-          board.squareClicked(row, col)
+          boardView.selectedRow = row
+          boardView.selectedCol = col
+          boardView.squareClicked(row, col)
         }
       }
     }
