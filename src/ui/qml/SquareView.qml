@@ -12,6 +12,7 @@ Rectangle {
     readonly property string darkColor: "#B58863"
     readonly property string lightColor: "#F0D9B5"
     readonly property string selectionOverlay: "#80b42589"
+    readonly property string hoverOverlay: "#33ffffff"
     readonly property string legalMoveIndicator: "#8000ff00"
     readonly property string legalCaptureIndicator: '#80ff0000'
 
@@ -50,7 +51,7 @@ Rectangle {
     // Lighten the square when hovering over it using overlay square
     Rectangle {
         anchors.fill: parent
-        color: '#33ffffff' // 20% transparency white
+        color: hoverOverlay
         visible: mouseArea.containsMouse
         z: 2 // Above selection
     }
