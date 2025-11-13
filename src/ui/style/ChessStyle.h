@@ -2,7 +2,6 @@
 
 #include <QColor>
 #include <QFont>
-#include <qcolor.h>
 
 namespace ChessStyle {
 /**
