@@ -1,12 +1,11 @@
 #pragma once
 
-#include <QWidget>
-#include <QTableWidget>
-#include <QVBoxLayout>
 #include <QHeaderView>
 #include <QString>
+#include <QTableWidget>
+#include <QVBoxLayout>
+#include <QWidget>
 #include <vector>
-
 
 class MoveHistoryWidget : public QWidget {
   Q_OBJECT;
