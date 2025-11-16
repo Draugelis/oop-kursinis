@@ -15,7 +15,7 @@ class BoardWidget : public QWidget {
   Q_OBJECT 
 
 private :
-  // Grid layout for presenting squared
+  // Grid layout for presenting squares
   QGridLayout *m_pGridLayout;
   // Square widgets
   SquareWidget *m_pSquares[8][8];
