@@ -73,7 +73,8 @@ public:
   // Recommended minimum square size
   QSize minimumSizeHint() const override;
 
-  // Qt signals
+
 signals:
+  // Square click signal
   void squareClicked(int row, int col);
 };
