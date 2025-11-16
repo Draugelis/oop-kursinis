@@ -5,56 +5,75 @@
 
 class SquareWidget : public QWidget {
 private:
-  // Position on board
+  // Square's row on the board
   int m_nRow;
+  // Square's column on the board
   int m_nCol;
 
-  // Visual metadata
+  // Path to piece's SVG file
   QString m_strPieceSvg;
+  // Flag whether square is selected
   bool m_bIsSelected;
+  // Flag whether square is hovered
   bool m_bIsHovered;
+  // Flag whether to show legal move indicator
   bool m_bShowLegalMove;
+  // Flag whether to show capture indicator
   bool m_bShowCapture;
 
-  // Labels on the side
+  // Flag whether to show file label
   bool m_bShowFile;
+  // Flag whether to show rank label
   bool m_bShowRank;
 
-  // Helpers
+  // Draw square's background
   void drawBackground(QPainter &painter);
+  // Draw piece on the square
   void drawPiece(QPainter &painter);
+  // Draw selection indicator
   void drawSelection(QPainter &painter);
+  // Draw legal move/capture indicators
   void drawLegalMoveIndicator(QPainter &painter);
+  // Draw row/col labels
   void drawLabels(QPainter &painter);
 
 protected:
-  // QWidget method overrides
-  void paintEvent(QPaintEvent *pEvent) override;
-  void mousePressEvent(QMouseEvent *pEvent) override;
-  void enterEvent(QEnterEvent *pEvent) override;
-  void leaveEvent(QEvent *pEvent) override;
+  // Redraw the square
+  void paintEvent(QPaintEvent *event) override;
+  // Handle mouse clicks and emit signals
+  void mousePressEvent(QMouseEvent *event) override;
+  // Handle mouse hovering over the square
+  void enterEvent(QEnterEvent *event) override;
+  // Handle mouse no longer hovering over the square
+  void leaveEvent(QEvent *event) override;
 
 public:
-  explicit SquareWidget(int row, int col, QWidget *pParent = nullptr);
+  explicit SquareWidget(int row, int col, QWidget *parent = nullptr);
 
-  // Getters
-  int row() const { return m_nRow; }
-  int col() const { return m_nCol; }
-  int isSelected() const { return m_bIsSelected; }
-  QString pieceSvg() const { return m_strPieceSvg; }
+  // Get square's row
+  int getRow() const;
+  // Get square's column
+  int getCol() const;
+  // Check whether a square is selected
+  bool isSelected() const;
+  // Get piece SVG for a square
+  QString getPieceSvg() const;
 
-  // Setters
+  // Square's piece SVG setter
   void setPieceSvg(const QString &svgPath);
+  // Square's selected flag setter
   void setSelected(bool selected);
+  // Square's legal move/capture indicator setter
   void setShowLegalMove(bool show, bool isCapture = false);
+  // Should square show rank/file labels
   void setShowLabels(bool showFile, bool showRank);
 
-  // QWidget method overrides
+  // Recommended square size
   QSize sizeHint() const override;
+  // Recommended minimum square size
   QSize minimumSizeHint() const override;
 
-// Qt signals
+  // Qt signals
 signals:
   void squareClicked(int row, int col);
 };
-
