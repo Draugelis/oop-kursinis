@@ -65,6 +65,7 @@ QString SquareWidget::getPieceSvg() const { return m_strPieceSvg; }
  */
 void SquareWidget::setPieceSvg(const QString &svgPath) {
   m_strPieceSvg = svgPath;
+  update();
 }
 
 /**
@@ -72,7 +73,10 @@ void SquareWidget::setPieceSvg(const QString &svgPath) {
  *
  * @param selected Whether a square is selected
  */
-void SquareWidget::setSelected(bool selected) { m_bIsSelected = selected; }
+void SquareWidget::setSelected(bool selected) {
+  m_bIsSelected = selected;
+  update();
+}
 
 /**
  * @brief Square's legal move/capture indicator setter
@@ -83,6 +87,7 @@ void SquareWidget::setSelected(bool selected) { m_bIsSelected = selected; }
 void SquareWidget::setShowLegalMove(bool show, bool isCapture) {
   m_bShowLegalMove = (show && !isCapture);
   m_bShowCapture = (show && isCapture);
+  update();
 }
 
 /**
@@ -94,6 +99,7 @@ void SquareWidget::setShowLegalMove(bool show, bool isCapture) {
 void SquareWidget::setShowLabels(bool showFile, bool showRank) {
   m_bShowFile = showFile;
   m_bShowRank = showRank;
+  update();
 }
 
 /**
@@ -247,7 +253,7 @@ void SquareWidget::drawPiece(QPainter &painter) {
  * @param painter
  */
 void SquareWidget::drawLabels(QPainter &painter) {
-  if (!m_bShowFile && !m_bShowFile) {
+  if (!m_bShowFile && !m_bShowRank) {
     return; // nothing to draw
   }
 
