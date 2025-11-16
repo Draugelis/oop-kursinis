@@ -8,7 +8,7 @@
 #include <vector>
 
 class MoveHistoryWidget : public QWidget {
-  Q_OBJECT;
+  Q_OBJECT
 
 private:
   QVBoxLayout *m_pLayout;

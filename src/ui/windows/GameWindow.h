@@ -10,7 +10,7 @@
 #include <QWidget>
 
 class GameWindow : public QMainWindow {
-  Q_OBJECT;
+  Q_OBJECT
 
 private:
   // Layouts

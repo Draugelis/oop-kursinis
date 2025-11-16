@@ -7,7 +7,7 @@
 #include <QWidget>
 
 class MainMenuWindow : public QMainWindow {
-  Q_OBJECT;
+  Q_OBJECT
 
 private:
   QVBoxLayout *m_pMainLayout;

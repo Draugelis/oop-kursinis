@@ -5,7 +5,7 @@
 #include <QWidget>
 
 class GameControlsWidget : public QWidget {
-  Q_OBJECT;
+  Q_OBJECT
 
 private:
   QHBoxLayout *m_pLayout;

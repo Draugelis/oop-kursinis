@@ -6,7 +6,7 @@
 #include <QPushButton>
 
 class PromotionDialog : public QDialog {
-  Q_OBJECT;
+  Q_OBJECT
 
 private:
   QGridLayout *m_pLayout;

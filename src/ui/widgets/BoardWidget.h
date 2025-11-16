@@ -6,7 +6,7 @@
 #include <vector>
 
 class BoardWidget : public QWidget {
-  Q_OBJECT; // Qt-specific macro
+  Q_OBJECT // Qt-specific macro
 
 private:
   QGridLayout *m_pGridLayout;
