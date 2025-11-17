@@ -86,15 +86,11 @@ void GameControlsWidget::applyButtonStyle(QPushButton *button) {
  * TODO: move these magic numbers to constants
  * @return QSize Recommended size
  */
-QSize GameControlsWidget::sizeHint() const {
-    return QSize(400, 60);
-}
+QSize GameControlsWidget::sizeHint() const { return QSize(400, 60); }
 
 /**
  * @brief Recommended minimum size
  * TODO: move these magic numbers to constants
  * @return QSize Minimum size
  */
-QSize GameControlsWidget::minimumSizeHint() const {
-    return QSize(300, 50);
-}
+QSize GameControlsWidget::minimumSizeHint() const { return QSize(300, 50); }
