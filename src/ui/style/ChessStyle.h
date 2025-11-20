@@ -39,4 +39,16 @@ inline QColor moveHistoryEven() { return QColor("#ffffffff"); }
 inline QColor moveHistoryOdd() { return QColor("#f5f5f5ff"); }
 inline QColor moveHistoryHighlight() { return QColor("#e3f2fdff"); }
 
+// Fonts
+inline QFont standardFont(int size = 14) { return QFont("Arial", size); }
+inline QFont boldFont(int size = 14) {
+  QFont font("Arial", size);
+  font.setBold(true);
+  return font;
+}
+
+// Size constants
+inline constexpr int minSquareSize() { return 40; }
+inline constexpr int preferredSquareSize() { return 80; }
+
 } // namespace ChessStyle
