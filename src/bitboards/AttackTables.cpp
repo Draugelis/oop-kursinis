@@ -3,6 +3,13 @@
 #include "core/Constants.h"
 
 namespace bitboards {
+// Define static members
+std::array<BitBoard, core::TOTAL_SQUARES> AttackTables::s_arrKnightAttacks;
+std::array<BitBoard, core::TOTAL_SQUARES> AttackTables::s_arrKingAttacks;
+std::array<BitBoard, core::TOTAL_SQUARES> AttackTables::s_arrPawnAttacksWhite;
+std::array<BitBoard, core::TOTAL_SQUARES> AttackTables::s_arrPawnAttacksBlack;
+bool AttackTables::s_bInitialized = false;
+
 /**
  * @brief Generates Knight attack bitboards for all 64 squares
  *
