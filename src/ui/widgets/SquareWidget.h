@@ -4,6 +4,8 @@
 #include <QWidget>
 
 class SquareWidget : public QWidget {
+  Q_OBJECT
+
 private:
   // Square's row on the board
   int m_nRow;
