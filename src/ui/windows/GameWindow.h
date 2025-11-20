@@ -13,23 +13,31 @@ class GameWindow : public QMainWindow {
   Q_OBJECT
 
 private:
-  // Layouts
+  // Main layout
   QVBoxLayout *m_pMainLayout;
+  // Board and sidebar layout
   QHBoxLayout *m_pGameLayout;
   QVBoxLayout *m_pSidebarLayout;
 
-  // Widgets
+  // Status bar
   StatusBarWidget *m_pStatusBar;
+  // Chess board
   BoardWidget *m_pBoard;
+  // Move history
   MoveHistoryWidget *m_pMoveHistory;
+  // Game control buttons
   GameControlsWidget *m_pControls;
 
-  // Containers
+  // Central container for all widgets
   QWidget *m_pCentralWidget;
+  // Board container
   QWidget *m_pBoardContainer;
+  // Side container (move history and controls)
   QWidget *m_pSidebarContainer;
 
+  // Setup UI components
   void setupUI();
+  // Map child widget signals to window's signals
   void connectSignals();
 
 public:
