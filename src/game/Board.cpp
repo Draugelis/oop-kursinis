@@ -115,6 +115,11 @@ void Board::movePiece(core::Position from, core::Position to) {
     return; // Nothing to move
   }
 
+  // Remove any destination pieces before moving
+  if (!isEmpty(to)) {
+    removePiece(to);
+  }
+
   // Execute piece move
   m_bitboards.movePiece(from, to, piece->getColor(), piece->getType());
 }
