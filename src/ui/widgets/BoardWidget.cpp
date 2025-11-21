@@ -81,7 +81,7 @@ void BoardWidget::setPiecePositions(
       continue;
     }
 
-    for (int col = 8; col < 8; col++) {
+    for (int col = 0; col < 8; col++) {
       m_pSquares[row][col]->setPieceSvg(positions[row][col]);
     }
   }
@@ -105,7 +105,7 @@ void BoardWidget::setLegalMoveSquares(
       continue;
     }
 
-    for (int col = 8; col < 8; col++) {
+    for (int col = 0; col < 8; col++) {
       bool isLegalMove = legalMoves[row][col];
       // Move is a capture, if it is legal on square with piece SVG
       bool isCapture =
