@@ -159,8 +159,7 @@ void AttackTables::initialize() {
  * @param pos Current position
  * @return BitBoard
  */
-BitBoard
-AttackTables::getKnightAttacks(const core::Position &pos) {
+BitBoard AttackTables::getKnightAttacks(const core::Position &pos) {
   return s_arrKnightAttacks[pos.toIndex()];
 }
 
@@ -170,8 +169,7 @@ AttackTables::getKnightAttacks(const core::Position &pos) {
  * @param pos Current position
  * @return BitBoard
  */
-BitBoard
-AttackTables::getKingAttacks(const core::Position &pos) {
+BitBoard AttackTables::getKingAttacks(const core::Position &pos) {
   return s_arrKingAttacks[pos.toIndex()];
 }
 
@@ -182,9 +180,8 @@ AttackTables::getKingAttacks(const core::Position &pos) {
  * @param color Pawn's color
  * @return BitBoard
  */
-BitBoard
-AttackTables::getPawnAttacks(const core::Position &pos,
-                                        core::Color color) {
+BitBoard AttackTables::getPawnAttacks(const core::Position &pos,
+                                      core::Color color) {
   return (color == core::Color::WHITE) ? s_arrPawnAttacksWhite[pos.toIndex()]
                                        : s_arrPawnAttacksBlack[pos.toIndex()];
 }
