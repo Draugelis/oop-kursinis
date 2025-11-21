@@ -4,7 +4,9 @@
  */
 
 #include "SquareWidget.h"
+#include "core/Logging.h"
 #include "ui/style/ChessStyle.h"
+#include <QFile>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QSvgRenderer>
@@ -240,11 +242,18 @@ void SquareWidget::drawPiece(QPainter &painter) {
     return; // nothing to draw
   }
 
+  qCDebug(resourceDebug) << "Loading SVG:" << m_strPieceSvg
+                         << "exists:" << QFile::exists(m_strPieceSvg);
+
   QSvgRenderer renderer(m_strPieceSvg);
-  if (renderer.isValid()) {
-    QRect pieceRect = rect().adjusted(5, 5, -5, -5); // 5 px margins
-    renderer.render(&painter, pieceRect);
+
+  if (!renderer.isValid()) {
+    qCWarning(resourceDebug) << "Invalid SVG renderer for:" << m_strPieceSvg;
+    return;
   }
+
+  QRect pieceRect = rect().adjusted(5, 5, -5, -5); // 5 px margins
+  renderer.render(&painter, pieceRect);
 }
 
 /**
