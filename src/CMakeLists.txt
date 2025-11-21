@@ -4,6 +4,7 @@ set(CHESS_SOURCES
     core/Color.cpp
     core/PieceType.cpp
     core/Position.cpp
+    core/Logging.cpp
     
     # Bitboards
     bitboards/AttackTables.cpp
