@@ -237,6 +237,8 @@ std::string Move::toAlgebraic() const {
     algebraic += 'x'; // x denotes capture
   }
 
+  algebraic += m_to.toString();
+
   // Setting up promotion notation. e.g. e8=Q (white promote to Queen)
   if (isPromotion()) {
     algebraic += '=';
@@ -253,7 +255,7 @@ std::string Move::toAlgebraic() const {
 
   // Setting up check and checkmate notations
   if (isCheckmate()) {
-    algebraic += "+";
+    algebraic += "#";
   } else if (isCheck()) {
     algebraic += '+';
   }
