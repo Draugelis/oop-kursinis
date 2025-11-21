@@ -24,11 +24,13 @@ int main(int argc, char *argv[]) {
   // Enable debug logging if flag is set
   if (parser.isSet(debugOption)) {
     QLoggingCategory::setFilterRules(
-        "qt.*.debug=false\n"   // Disable internal Qt debug
-        "ui.debug=true\n"      // Enable game's ui category
-        "game.debug=true\n"    // Enable game's game category
-        "resources.debug=true" // Enable game's resources category
-        "default.debug=true"   // Allow uncategorized qDebug
+        "qt.*.debug=false\n" // Disable internal Qt debug
+        "ui.debug=true\n"
+        "game.debug=true\n"
+        "move.debug=true\n"
+        "board.debug=true\n"
+        "resources.debug=false\n"
+        "default.debug=true" // Allow uncategorized qDebug
     );
     qDebug() << "Debug mode enabled";
 

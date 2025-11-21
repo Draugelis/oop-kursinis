@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "pieces/PieceFactory.h"
+#include "core/Logging.h" 
 
 namespace game {
 
@@ -90,8 +91,9 @@ void Board::removePiece(core::Position pos) {
   // Get occupying piece
   auto piece = getPieceAt(pos);
   if (!piece) {
+    qCWarning(boardDebug) << "removePiece: No piece at" 
+                          << QString::fromStdString(pos.toString());
     return; // Nothing to remove
-    // TODO: Throw an exception?
   }
 
   // Remove piece from bitboards
@@ -108,8 +110,9 @@ void Board::movePiece(core::Position from, core::Position to) {
   // Get piece at starting position
   auto piece = getPieceAt(from);
   if (!piece) {
+    qCWarning(boardDebug) << "movePiece: No piece at" 
+                          << QString::fromStdString(from.toString());
     return; // Nothing to move
-    // TODO: Throw an exception?
   }
 
   // Execute piece move
