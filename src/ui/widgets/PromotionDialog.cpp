@@ -40,13 +40,13 @@ void PromotionDialog::setupUI() {
   // TODO: store SVG paths in constants file for proper storage
   QString colorPrefix = m_bIsWhite ? "w" : "b";
   createPieceButton(m_pQueenButton, "Queen",
-                    QString(":/pieces/%1_queen.svg").arg(colorPrefix));
+                    QString(":/assets/pieces/%1_queen.svg").arg(colorPrefix));
   createPieceButton(m_pRookButton, "Rook",
-                    QString(":/pieces/%1_rook.svg").arg(colorPrefix));
+                    QString(":/assets/pieces/%1_rook.svg").arg(colorPrefix));
   createPieceButton(m_pBishopButton, "Bishop",
-                    QString(":/pieces/%1_bishop.svg").arg(colorPrefix));
+                    QString(":/assets/pieces/%1_bishop.svg").arg(colorPrefix));
   createPieceButton(m_pKnightButton, "Knight",
-                    QString(":/pieces/%1_knight.svg").arg(colorPrefix));
+                    QString(":/assets/pieces/%1_knight.svg").arg(colorPrefix));
 
   // Add buttons to grid (2x2 layout)
   m_pLayout->addWidget(m_pQueenButton, 0, 0);

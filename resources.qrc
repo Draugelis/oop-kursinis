@@ -1,6 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-    <qresource prefix="/pieces">
+    <qresource>
         <!-- White pieces -->
         <file>assets/pieces/w_pawn.svg</file>
         <file>assets/pieces/w_rook.svg</file>

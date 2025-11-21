@@ -350,7 +350,7 @@ QString ChessGameController::getPieceSvgPath(core::PieceType type,
     break;
   }
 
-  return QString(":/pieces/%1_%2.svg").arg(colorPrefix).arg(pieceName);
+  return QString(":/assets/pieces/%1_%2.svg").arg(colorPrefix).arg(pieceName);
 }
 
 /**

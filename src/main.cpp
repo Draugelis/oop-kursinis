@@ -24,11 +24,11 @@ int main(int argc, char *argv[]) {
   // Enable debug logging if flag is set
   if (parser.isSet(debugOption)) {
     QLoggingCategory::setFilterRules(
-        "qt.*.debug=false\n"      // Disable internal Qt debug
+        "qt.*.debug=false\n"   // Disable internal Qt debug
         "ui.debug=true\n"      // Enable game's ui category
         "game.debug=true\n"    // Enable game's game category
         "resources.debug=true" // Enable game's resources category
-        "default.debug=true" // Allow uncategorized qDebug
+        "default.debug=true"   // Allow uncategorized qDebug
     );
     qDebug() << "Debug mode enabled";
 
@@ -38,14 +38,15 @@ int main(int argc, char *argv[]) {
     while (it.hasNext()) {
       qDebug() << "Resource found:" << it.next();
     }
-    
+
     // Check specific paths
     qDebug() << "Checking specific paths:";
     qDebug() << ":/pieces exists:" << QDir(":/pieces").exists();
     qDebug() << ":/pieces entries:" << QDir(":/pieces").entryList();
     qDebug() << ":/assets/pieces exists:" << QDir(":/assets/pieces").exists();
-    qDebug() << ":/assets/pieces entries:" << QDir(":/assets/pieces").entryList();
-    
+    qDebug() << ":/assets/pieces entries:"
+             << QDir(":/assets/pieces").entryList();
+
     // Check if qrc was compiled
     qDebug() << "Build info:";
     qDebug() << "Working directory:" << QDir::currentPath();
