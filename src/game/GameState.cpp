@@ -290,20 +290,23 @@ bool GameState::tryMove(const Move &move) {
  * @param move Move to execute
  */
 void GameState::applyMove(const Move &move) {
-  qCDebug(moveDebug) << "Applying move: "
-                     << QString::fromStdString(move.toAlgebraic());
-  qCDebug(moveDebug) << "From:"
-                     << QString::fromStdString(move.getFrom().toString())
-                     << "To:" << QString::fromStdString(move.getTo().toString())
-                     << "Type:" << (int)move.getType();
+  Logger::FunctionScope logScope;
+
+  Logger::debug(moveDebug(), "Applying move: " + move.toAlgebraic());
+  Logger::debug(moveDebug(), "From: " + move.getFrom().toString() +
+                                 " To: " + move.getTo().toString() + " Type: " +
+                                 std::to_string((int)move.getType()));
+
   // Move the piece on the board
   m_board.movePiece(move.getFrom(), move.getTo());
   m_moveHistory.push_back(move);
 
   // Handle pawn promotion
   if (move.isPromotion()) {
-    qCDebug(moveDebug) << "Handling promotion to"
-                       << move.getPromotionPiece()->getLetter();
+    Logger::debug(moveDebug(),
+                  "Handling promotion to " +
+                      std::string(1, move.getPromotionPiece()->getLetter()));
+
     // Remove pawn and replace it with a new piece
     m_board.removePiece(move.getTo());
     m_board.placePiece(move.getTo(), *move.getPromotionPiece(),
@@ -312,7 +315,8 @@ void GameState::applyMove(const Move &move) {
 
   // Handle castling
   if (move.isCastling()) {
-    qCDebug(moveDebug) << "Handling castling";
+    Logger::debug(moveDebug(), "Handling castling");
+
     // Detect which rook to move and where
     int rookStartingFile = move.getType() == MoveType::CASTLE_KINGSIDE
                                ? core::FILE_H
@@ -338,9 +342,8 @@ void GameState::applyMove(const Move &move) {
     core::Position capturePiecePosition = core::Position(
         destination.getRank() - direction, destination.getFile());
 
-    qCDebug(moveDebug) << "Handling en passant, removing piece at"
-                       << QString::fromStdString(
-                              capturePiecePosition.toString());
+    Logger::debug(moveDebug(), "Handling en passant, removing piece at " +
+                                   capturePiecePosition.toString());
 
     // Remove captured piece
     m_board.removePiece(capturePiecePosition);
@@ -371,8 +374,7 @@ void GameState::applyMove(const Move &move) {
   // Update game status
   updateOutcome();
 
-  qCDebug(moveDebug) << "Move applied";
-
+  Logger::debug(moveDebug(), "Move applied");
 }
 
 /**

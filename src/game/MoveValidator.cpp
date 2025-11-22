@@ -31,7 +31,9 @@ core::Position MoveValidator::findKing(core::Color color) const {
  */
 bool MoveValidator::leavesKingInCheck(const Move &move,
                                       const MoveContext &context) const {
-  qCDebug(moveDebug) << "Testing if move leaves king exposed";
+  Logger::FunctionScope logScope;
+
+  Logger::debug(moveDebug(), "Testing if move leaves king exposed");
 
   core::Color color = context.getSideToMove();
   core::Color opponentColor = color.opposite();
@@ -47,8 +49,10 @@ bool MoveValidator::leavesKingInCheck(const Move &move,
     auto capturedPiece = board.getPieceAt(*capturePiecePosition);
     if (capturedPiece) {
       capturedPieceType = capturedPiece->getType();
-      qCDebug(moveDebug) << "Capturing" << capturedPiece->getColor().toLetter()
-                         << capturedPiece->getLetter();
+      Logger::debug(moveDebug(),
+                    "Capturing " +
+                        std::string(1, capturedPiece->getColor().toLetter()) +
+                        std::string(1, capturedPiece->getLetter()));
     }
   }
   // Of course, en passant is a special case
@@ -76,7 +80,8 @@ bool MoveValidator::leavesKingInCheck(const Move &move,
   // Evaluate if king is in check after the move
   bool leftInCheck = isInCheck(color, context);
 
-  qCDebug(moveDebug) << "King in check after move:" << leftInCheck;
+  Logger::debug(moveDebug(),
+                "King in check after move: " + std::to_string(leftInCheck));
 
   // Move piece back
   m_bitboards.movePiece(move.getTo(), move.getFrom(), color,
@@ -140,11 +145,12 @@ bool MoveValidator::isCastleLegal(const Move &move,
 std::vector<Move>
 MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
                                 const MoveContext &context) const {
-  qCDebug(moveDebug) << "Filtering legal moves";
-  qCDebug(moveDebug) << "Input:" << moves.size() << "pseudo-legal moves";
-  qCDebug(moveDebug) << "Side to move:"
-                     << QString::fromStdString(
-                            context.getSideToMove().toString());
+  Logger::FunctionScope logScope;
+
+  Logger::debug(
+      moveDebug(),
+      "Filtering legal moves, input: " + std::to_string(moves.size()) +
+          " pseudo-legal moves, side: " + context.getSideToMove().toString());
 
   std::vector<Move> legalMoves;
   // Simply check each move
@@ -154,7 +160,9 @@ MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
     }
   }
 
-  qCDebug(moveDebug) << "Output:" << legalMoves.size() << "legal moves";
+  Logger::debug(moveDebug(), "Filtering complete, output: " +
+                                 std::to_string(legalMoves.size()) +
+                                 " legal moves");
 
   return legalMoves;
 }
@@ -169,19 +177,21 @@ MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
  */
 bool MoveValidator::isLegal(const Move &move,
                             const MoveContext &context) const {
-  qCDebug(moveDebug) << "Checking legality of:"
-                     << QString::fromStdString(move.toAlgebraic());
+  Logger::FunctionScope logScope;
+
+  Logger::debug(moveDebug(), "Checking legality: " + move.toAlgebraic());
 
   // Check if castling is legal
   if (move.isCastling()) {
     bool legal = isCastleLegal(move, context);
-    qCDebug(moveDebug) << "Castling legal:" << legal;
+    Logger::debug(moveDebug(), "Castling legal: " + std::to_string(legal));
     return legal;
   }
 
   // Check if move doesn't leave king in check
   bool leavesInCheck = leavesKingInCheck(move, context);
-  qCDebug(moveDebug) << "Leaves king in check:" << leavesInCheck;
+  Logger::debug(moveDebug(),
+                "Leaves king in check: " + std::to_string(leavesInCheck));
 
   return !leavesInCheck;
 }
@@ -211,19 +221,22 @@ bool MoveValidator::isInCheck(core::Color color,
  */
 bool MoveValidator::hasLegalMoves(const std::vector<Move> &moves,
                                   const MoveContext &context) const {
-  qCDebug(moveDebug) << "Checking for legal moves, total:" << moves.size();
+  Logger::FunctionScope logScope;
+
+  Logger::debug(moveDebug(), "Checking for legal moves, total: " +
+                                 std::to_string(moves.size()));
 
   for (const Move &move : moves) {
     // Checking for at least one legal move
     if (isLegal(move, context)) {
-      qCDebug(moveDebug) << "Found legal move:"
-                         << QString::fromStdString(move.toAlgebraic());
+      Logger::debug(moveDebug(), "Found legal move: " + move.toAlgebraic());
+
       return true;
     }
   }
 
   // No legal moves found
-  qCDebug(moveDebug) << "No legal moves found";
+  Logger::debug(moveDebug(), "No legal moves found");
   return false;
 }
 

@@ -242,13 +242,17 @@ void SquareWidget::drawPiece(QPainter &painter) {
     return; // nothing to draw
   }
 
-  qCDebug(resourceDebug) << "Loading SVG:" << m_strPieceSvg
-                         << "exists:" << QFile::exists(m_strPieceSvg);
+  Logger::FunctionScope logScope;
+
+  Logger::debug(resourceDebug(),
+                "Loading SVG: " + m_strPieceSvg.toStdString() +
+                    " exists: " + std::to_string(QFile::exists(m_strPieceSvg)));
 
   QSvgRenderer renderer(m_strPieceSvg);
 
   if (!renderer.isValid()) {
-    qCWarning(resourceDebug) << "Invalid SVG renderer for:" << m_strPieceSvg;
+    Logger::warning(resourceDebug(),
+                    "Invalid SVG renderer for: " + m_strPieceSvg.toStdString());
     return;
   }
 

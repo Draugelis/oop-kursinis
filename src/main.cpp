@@ -32,26 +32,9 @@ int main(int argc, char *argv[]) {
         "resources.debug=false\n"
         "default.debug=true" // Allow uncategorized qDebug
     );
-    qDebug() << "Debug mode enabled";
 
-    // List ALL available Qt resources
-    qDebug() << "All Qt Resources:";
-    QDirIterator it(":", QDirIterator::Subdirectories);
-    while (it.hasNext()) {
-      qDebug() << "Resource found:" << it.next();
-    }
-
-    // Check specific paths
-    qDebug() << "Checking specific paths:";
-    qDebug() << ":/pieces exists:" << QDir(":/pieces").exists();
-    qDebug() << ":/pieces entries:" << QDir(":/pieces").entryList();
-    qDebug() << ":/assets/pieces exists:" << QDir(":/assets/pieces").exists();
-    qDebug() << ":/assets/pieces entries:"
-             << QDir(":/assets/pieces").entryList();
-
-    // Check if qrc was compiled
-    qDebug() << "Build info:";
-    qDebug() << "Working directory:" << QDir::currentPath();
+    Logger::FunctionScope logScope;
+    Logger::debug(gameDebug(), "Debug mode enabled");
   }
 
   // Initialize attack tables before game starts

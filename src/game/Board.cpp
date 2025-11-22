@@ -1,6 +1,6 @@
 #include "Board.h"
+#include "core/Logging.h"
 #include "pieces/PieceFactory.h"
-#include "core/Logging.h" 
 
 namespace game {
 
@@ -68,6 +68,12 @@ bool Board::isOccupiedBy(core::Position pos, core::Color color) const {
  */
 void Board::placePiece(core::Position pos, core::PieceType type,
                        core::Color color) {
+  Logger::FunctionScope logScope;
+
+  Logger::debug(boardDebug(),
+                "placePiece: " + std::string(1, color.toLetter()) +
+                    std::string(1, type.getLetter()) + " at " + pos.toString());
+
   // pass-through method to bitboards
   m_bitboards.setPiece(pos, color, type);
 }
@@ -88,13 +94,19 @@ void Board::placePiece(core::Position pos, pieces::Piece &piece) {
  * @param pos Target position
  */
 void Board::removePiece(core::Position pos) {
+  Logger::FunctionScope logScope;
+
   // Get occupying piece
   auto piece = getPieceAt(pos);
   if (!piece) {
-    qCWarning(boardDebug) << "removePiece: No piece at" 
-                          << QString::fromStdString(pos.toString());
+    Logger::warning(boardDebug(), "removePiece: No piece at " + pos.toString());
     return; // Nothing to remove
   }
+
+  Logger::debug(boardDebug(),
+                "removePiece: " + std::string(1, piece->getColor().toLetter()) +
+                    std::string(1, piece->getLetter()) + " from " +
+                    pos.toString());
 
   // Remove piece from bitboards
   m_bitboards.clearPiece(pos, piece->getColor(), piece->getType());
@@ -107,13 +119,19 @@ void Board::removePiece(core::Position pos) {
  * @param to Destination position
  */
 void Board::movePiece(core::Position from, core::Position to) {
+  Logger::FunctionScope logScope;
+
   // Get piece at starting position
   auto piece = getPieceAt(from);
   if (!piece) {
-    qCWarning(boardDebug) << "movePiece: No piece at" 
-                          << QString::fromStdString(from.toString());
+    Logger::warning(boardDebug(), "movePiece: No piece at " + from.toString());
     return; // Nothing to move
   }
+
+  Logger::debug(boardDebug(),
+                "movePiece: " + std::string(1, piece->getColor().toLetter()) +
+                    std::string(1, piece->getLetter()) + " from " +
+                    from.toString() + " to " + to.toString());
 
   // Remove any destination pieces before moving
   if (!isEmpty(to)) {
