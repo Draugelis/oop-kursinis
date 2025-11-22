@@ -1,4 +1,5 @@
 #include "MoveGenerator.h"
+#include "core/Logging.h"
 #include "game/Board.h"
 
 namespace game {
@@ -54,6 +55,10 @@ std::vector<Move>
 MoveGenerator::generatePieceMoves(core::Position pos,
                                   const pieces::Piece &piece,
                                   const MoveContext &context) const {
+  qCDebug(moveDebug) << "Generating moves for" << piece.getColor().toLetter()
+                     << piece.getLetter() << "at"
+                     << QString::fromStdString(pos.toString());
+
   // Get current color
   core::Color color = context.getSideToMove();
   // retrieve move bitboards for a piece
@@ -81,6 +86,8 @@ MoveGenerator::generatePieceMoves(core::Position pos,
     // Check for pawn promotion
     if (piece.getType() == core::PieceType::PAWN &&
         (destinationRank == core::RANK_8 || destinationRank == core::RANK_1)) {
+      qCDebug(moveDebug) << "Pawn promotion move to"
+                         << QString::fromStdString(moveDestination.toString());
       moves.push_back(Move(pos, moveDestination, piece.getType(), color,
                            MoveType::PROMOTION));
       continue; // Move added, carry on
@@ -95,6 +102,7 @@ MoveGenerator::generatePieceMoves(core::Position pos,
         MoveType castlingSide = destinationFile == core::FILE_G
                                     ? MoveType::CASTLE_KINGSIDE
                                     : MoveType::CASTLE_QUEENSIDE;
+        qCDebug(moveDebug) << "Castling move";
         moves.push_back(
             Move(pos, moveDestination, piece.getType(), color, castlingSide));
         continue; // Move added, carry on
@@ -113,6 +121,9 @@ MoveGenerator::generatePieceMoves(core::Position pos,
     // Check for pawn promotion captures
     if (piece.getType() == core::PieceType::PAWN &&
         (destinationRank == core::RANK_8 || destinationRank == core::RANK_1)) {
+      qCDebug(moveDebug) << "Pawn promotion capture to"
+                         << QString::fromStdString(
+                                attackDestination.toString());
       moves.push_back(Move(pos, attackDestination, piece.getType(), color,
                            MoveType::PROMOTION_CAPTURE));
       continue; // Move added, carry on
@@ -136,10 +147,13 @@ MoveGenerator::generatePieceMoves(core::Position pos,
     // Check if pawn is 1 diagonal away from epTarget
     if ((abs(pos.getFile() - epTarget.getFile()) == 1) &&
         (pos.getRank() + moveDirection == epTarget.getRank())) {
+      qCDebug(moveDebug) << "En passant move";
       moves.push_back(
           Move(pos, epTarget, piece.getType(), color, MoveType::EN_PASSANT));
     }
   }
+
+  qCDebug(moveDebug) << "Generated" << moves.size() << "moves for piece";
 
   return moves;
 }

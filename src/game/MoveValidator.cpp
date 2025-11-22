@@ -1,5 +1,6 @@
 #include "MoveValidator.h"
 #include "bitboards/AttackGenerator.h"
+#include "core/Logging.h"
 #include "game/Board.h"
 
 namespace game {
@@ -30,6 +31,8 @@ core::Position MoveValidator::findKing(core::Color color) const {
  */
 bool MoveValidator::leavesKingInCheck(const Move &move,
                                       const MoveContext &context) const {
+  qCDebug(moveDebug) << "Testing if move leaves king exposed";
+
   core::Color color = context.getSideToMove();
   core::Color opponentColor = color.opposite();
 
@@ -44,6 +47,8 @@ bool MoveValidator::leavesKingInCheck(const Move &move,
     auto capturedPiece = board.getPieceAt(*capturePiecePosition);
     if (capturedPiece) {
       capturedPieceType = capturedPiece->getType();
+      qCDebug(moveDebug) << "Capturing" << capturedPiece->getColor().toLetter()
+                         << capturedPiece->getLetter();
     }
   }
   // Of course, en passant is a special case
@@ -70,6 +75,8 @@ bool MoveValidator::leavesKingInCheck(const Move &move,
 
   // Evaluate if king is in check after the move
   bool leftInCheck = isInCheck(color, context);
+
+  qCDebug(moveDebug) << "King in check after move:" << leftInCheck;
 
   // Move piece back
   m_bitboards.movePiece(move.getTo(), move.getFrom(), color,
@@ -133,6 +140,12 @@ bool MoveValidator::isCastleLegal(const Move &move,
 std::vector<Move>
 MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
                                 const MoveContext &context) const {
+  qCDebug(moveDebug) << "Filtering legal moves";
+  qCDebug(moveDebug) << "Input:" << moves.size() << "pseudo-legal moves";
+  qCDebug(moveDebug) << "Side to move:"
+                     << QString::fromStdString(
+                            context.getSideToMove().toString());
+
   std::vector<Move> legalMoves;
   // Simply check each move
   for (Move move : moves) {
@@ -140,6 +153,9 @@ MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
       legalMoves.push_back(move);
     }
   }
+
+  qCDebug(moveDebug) << "Output:" << legalMoves.size() << "legal moves";
+
   return legalMoves;
 }
 
@@ -153,12 +169,21 @@ MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
  */
 bool MoveValidator::isLegal(const Move &move,
                             const MoveContext &context) const {
+  qCDebug(moveDebug) << "Checking legality of:"
+                     << QString::fromStdString(move.toAlgebraic());
+
   // Check if castling is legal
   if (move.isCastling()) {
-    return isCastleLegal(move, context);
+    bool legal = isCastleLegal(move, context);
+    qCDebug(moveDebug) << "Castling legal:" << legal;
+    return legal;
   }
+
   // Check if move doesn't leave king in check
-  return !leavesKingInCheck(move, context);
+  bool leavesInCheck = leavesKingInCheck(move, context);
+  qCDebug(moveDebug) << "Leaves king in check:" << leavesInCheck;
+
+  return !leavesInCheck;
 }
 
 /**
@@ -186,13 +211,19 @@ bool MoveValidator::isInCheck(core::Color color,
  */
 bool MoveValidator::hasLegalMoves(const std::vector<Move> &moves,
                                   const MoveContext &context) const {
+  qCDebug(moveDebug) << "Checking for legal moves, total:" << moves.size();
+
   for (const Move &move : moves) {
     // Checking for at least one legal move
     if (isLegal(move, context)) {
+      qCDebug(moveDebug) << "Found legal move:"
+                         << QString::fromStdString(move.toAlgebraic());
       return true;
     }
   }
+
   // No legal moves found
+  qCDebug(moveDebug) << "No legal moves found";
   return false;
 }
 

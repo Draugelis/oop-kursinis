@@ -1,4 +1,5 @@
 #include "Move.h"
+#include "core/Logging.h"
 
 namespace game {
 
@@ -49,7 +50,13 @@ Move::Move(core::Position from, core::Position to, core::PieceType pieceType,
            core::Color color, MoveType type, core::PieceType promotionPiece)
     : m_from(from), m_to(to), m_pieceType(pieceType), m_type(type),
       m_color(color), m_bIsCheck(false), m_bIsCheckmate(false),
-      m_promotionPiece(promotionPiece) {}
+      m_promotionPiece(promotionPiece) {
+  if ((type == MoveType::PROMOTION || type == MoveType::PROMOTION_CAPTURE) &&
+      !m_promotionPiece.has_value()) {
+    qCWarning(moveDebug)
+        << "WARNING: Promotion move created without promotion piece!";
+  }
+}
 
 /**
  * @brief Get starting position
