@@ -158,7 +158,7 @@ MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
 
   std::vector<Move> legalMoves;
   // Simply check each move
-  for (Move move : moves) {
+  for (const Move &move : moves) {
     // King captures are never legal
     if (move.getTo() == opponentKingPos) {
       Logger::debug(moveDebug(),
