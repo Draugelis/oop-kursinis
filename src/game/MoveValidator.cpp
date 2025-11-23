@@ -2,6 +2,7 @@
 #include "bitboards/AttackGenerator.h"
 #include "core/Logging.h"
 #include "game/Board.h"
+#include "game/MoveType.h"
 
 namespace game {
 
@@ -77,14 +78,11 @@ bool MoveValidator::leavesKingInCheck(const Move &move,
   m_bitboards.movePiece(move.getFrom(), move.getTo(), color,
                         move.getPieceType());
 
-  // Create new context with new occupancy for the evaluation 
+  // Create new context with new occupancy for the evaluation
   bitboards::BitBoard intermediateOccupancy = m_bitboards.getAllOccupancy();
   MoveContext intermediateContext(
-      context.getCastlingRights(),
-      context.getEnPassant(),
-      context.getSideToMove(),
-      intermediateOccupancy
-  );
+      context.getCastlingRights(), context.getEnPassant(),
+      context.getSideToMove(), intermediateOccupancy);
 
   // Evaluate if king is in check after the move
   bool leftInCheck = isInCheck(color, intermediateContext);
@@ -121,6 +119,22 @@ bool MoveValidator::isCastleLegal(const Move &move,
                                   const MoveContext &context) const {
 
   core::Color color = context.getSideToMove();
+
+  // Check if castling rights exist for this move
+  bool isKingside = (move.getType() == game::MoveType::CASTLE_KINGSIDE);
+  bool isQueenside = (move.getType() == game::MoveType::CASTLE_QUEENSIDE);
+
+  if (isKingside && !context.getCastlingRights().canCastleKingside(color)) {
+    Logger::debug(moveDebug(), "Castling illegal: no kingside rights for " +
+                                   color.toString());
+    return false;
+  }
+
+  if (isQueenside && !context.getCastlingRights().canCastleQueenside(color)) {
+    Logger::debug(moveDebug(), "Castling illegal: no queenside rights for " +
+                                   color.toString());
+    return false;
+  }
 
   // Can't castle from check
   if (isInCheck(color, context)) {
