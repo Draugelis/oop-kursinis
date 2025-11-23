@@ -90,7 +90,7 @@ MoveGenerator::generatePieceMoves(core::Position pos,
     if (piece.getType() == core::PieceType::PAWN &&
         (destinationRank == core::RANK_8 || destinationRank == core::RANK_1)) {
       Logger::debug(moveDebug(),
-                    "Pawn promotion move to " + moveDestination.toString());
+                    "Adding PROMOTION move to " + moveDestination.toString());
       moves.push_back(Move(pos, moveDestination, piece.getType(), color,
                            MoveType::PROMOTION));
       continue; // Move added, carry on
@@ -105,13 +105,16 @@ MoveGenerator::generatePieceMoves(core::Position pos,
         MoveType castlingSide = destinationFile == core::FILE_G
                                     ? MoveType::CASTLE_KINGSIDE
                                     : MoveType::CASTLE_QUEENSIDE;
-        Logger::debug(moveDebug(), "Castling move");
+        Logger::debug(moveDebug(),
+                      "Adding CASTLING move to " + moveDestination.toString());
         moves.push_back(
             Move(pos, moveDestination, piece.getType(), color, castlingSide));
         continue; // Move added, carry on
       }
     }
 
+    Logger::debug(moveDebug(),
+                  "Adding NORMAL move to " + moveDestination.toString());
     // Normal moves for non-promotions and non-castling
     moves.push_back(Move(pos, moveDestination, piece.getType(), color));
   }
@@ -124,7 +127,7 @@ MoveGenerator::generatePieceMoves(core::Position pos,
     // Check for pawn promotion captures
     if (piece.getType() == core::PieceType::PAWN &&
         (destinationRank == core::RANK_8 || destinationRank == core::RANK_1)) {
-      Logger::debug(moveDebug(), "Pawn promotion capture to " +
+      Logger::debug(moveDebug(), "Adding PROMOTION CAPTURE move to " +
                                      attackDestination.toString());
       moves.push_back(Move(pos, attackDestination, piece.getType(), color,
                            MoveType::PROMOTION_CAPTURE));
@@ -132,6 +135,8 @@ MoveGenerator::generatePieceMoves(core::Position pos,
     }
 
     // Normal capture if not promotion capture or en passant
+    Logger::debug(moveDebug(), "Adding NORMAL CAPTURE move to " +
+                                   attackDestination.toString());
     moves.push_back(Move(pos, attackDestination, piece.getType(), color,
                          MoveType::CAPTURE));
   }

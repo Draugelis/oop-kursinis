@@ -4,6 +4,7 @@
  */
 
 #include "ChessGameController.h"
+#include "core/Logging.h"
 #include "ui/widgets/PromotionDialog.h"
 #include <QMessageBox>
 
@@ -75,6 +76,8 @@ void ChessGameController::startNewGame(const QString &fen) {
  * @param col Clicked square col
  */
 void ChessGameController::handleSquareClick(int row, int col) {
+  Logger::FunctionScope logScope;
+
   // Game must be in progress
   if (m_pGameState->getOutcome() != game::GameOutcome::IN_PROGRESS) {
     return;
@@ -118,6 +121,10 @@ void ChessGameController::handleSquareClick(int row, int col) {
       m_pGameState->getLegalMovesFrom(m_selectedPosition);
   game::Move *matchedMove = nullptr;
   for (auto &move : legalMoves) {
+
+    Logger::debug(moveDebug(),
+                  "Selected move: " + move.toAlgebraic() +
+                      " Type: " + std::to_string((int)move.getType()));
     if (move.getTo() == clickedPos) {
       matchedMove = &move;
       break;
