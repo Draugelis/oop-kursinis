@@ -152,9 +152,20 @@ MoveValidator::filterLegalMoves(const std::vector<Move> &moves,
       "Filtering legal moves, input: " + std::to_string(moves.size()) +
           " pseudo-legal moves, side: " + context.getSideToMove().toString());
 
+  // Get opponent's king position to prevent capturing it
+  core::Color opponentColor = context.getSideToMove().opposite();
+  core::Position opponentKingPos = findKing(opponentColor);
+
   std::vector<Move> legalMoves;
   // Simply check each move
   for (Move move : moves) {
+    // King captures are never legal
+    if (move.getTo() == opponentKingPos) {
+      Logger::debug(moveDebug(),
+                    "Filtered out king capture: " + move.toAlgebraic());
+      continue;
+    }
+
     if (isLegal(move, context)) {
       legalMoves.push_back(move);
     }
