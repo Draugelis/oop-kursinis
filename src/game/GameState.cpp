@@ -383,11 +383,36 @@ void GameState::applyMove(const Move &move) {
  * @param move Move to base update upon
  */
 void GameState::updateCastlingRights(const Move &move) {
+  Logger::FunctionScope logScope;
+
+  Logger::debug(
+      castlingDebug(),
+      "Updating castling rights for move: " + move.toAlgebraic() + " from " +
+          move.getFrom().toString() + " to " + move.getTo().toString() +
+          " type: " + std::to_string(static_cast<int>(move.getPieceType())));
+
+  Logger::debug(
+      castlingDebug(),
+      "Current rights - White K:" +
+          std::to_string(
+              m_castlingRights.canCastleKingside(core::Color::WHITE)) +
+          " Q:" +
+          std::to_string(
+              m_castlingRights.canCastleQueenside(core::Color::WHITE)) +
+          " Black K:" +
+          std::to_string(
+              m_castlingRights.canCastleKingside(core::Color::BLACK)) +
+          " Q:" +
+          std::to_string(
+              m_castlingRights.canCastleQueenside(core::Color::BLACK)));
+
   // Get color for the move
   core::Color color = move.getColor();
 
   // Check if king has moved
   if (move.getPieceType() == core::PieceType::KING) {
+    Logger::debug(castlingDebug(), "King moved. Revoking all castling for " +
+                                       move.getColor().toString());
     // Color no longer can castle on any side
     m_castlingRights.revokeAll(color);
   }
@@ -395,12 +420,18 @@ void GameState::updateCastlingRights(const Move &move) {
   // Check if A file (queenside) rook has moved
   if (move.getPieceType() == core::PieceType::ROOK &&
       move.getFrom().getFile() == core::FILE_A) {
+    Logger::debug(castlingDebug(),
+                  "Rook moved. Revoking queenside castling for " +
+                      move.getColor().toString());
     m_castlingRights.revokeQueenside(color);
   }
 
   // Check if H file (kingside) rook has moved
   if (move.getPieceType() == core::PieceType::ROOK &&
       move.getFrom().getFile() == core::FILE_H) {
+    Logger::debug(castlingDebug(),
+                  "Rook moved. Revoking kingside castling for " +
+                      move.getColor().toString());
     m_castlingRights.revokeKingside(color);
   }
 
@@ -410,13 +441,34 @@ void GameState::updateCastlingRights(const Move &move) {
 
   // Check if opponent's queen side rook origin position is overtaken
   if (move.getTo() == core::Position(opponentRank, core::FILE_A)) {
+    Logger::debug(castlingDebug(),
+                  "Rook captured. Revoking queenside castling for " +
+                      opponent.toString());
     m_castlingRights.revokeQueenside(opponent);
   }
 
   // Check if opponent's king side rook origin position is overtaken
   if (move.getTo() == core::Position(opponentRank, core::FILE_H)) {
+    Logger::debug(castlingDebug(),
+                  "Rook captured. Revoking kingside castling for " +
+                      opponent.toString());
     m_castlingRights.revokeKingside(opponent);
   }
+
+  Logger::debug(
+      castlingDebug(),
+      "Updated rights - White K:" +
+          std::to_string(
+              m_castlingRights.canCastleKingside(core::Color::WHITE)) +
+          " Q:" +
+          std::to_string(
+              m_castlingRights.canCastleQueenside(core::Color::WHITE)) +
+          " Black K:" +
+          std::to_string(
+              m_castlingRights.canCastleKingside(core::Color::BLACK)) +
+          " Q:" +
+          std::to_string(
+              m_castlingRights.canCastleQueenside(core::Color::BLACK)));
 }
 
 /**

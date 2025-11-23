@@ -7,6 +7,7 @@ Q_LOGGING_CATEGORY(gameDebug, "game", QtWarningMsg)
 Q_LOGGING_CATEGORY(resourceDebug, "resources", QtDebugMsg)
 Q_LOGGING_CATEGORY(moveDebug, "move", QtDebugMsg)
 Q_LOGGING_CATEGORY(boardDebug, "board", QtDebugMsg)
+Q_LOGGING_CATEGORY(castlingDebug, "castling", QtDebugMsg)
 
 // Initialize static members
 std::atomic<int> Logger::s_callCounter{0};

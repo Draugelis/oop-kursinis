@@ -10,6 +10,7 @@ Q_DECLARE_LOGGING_CATEGORY(gameDebug)
 Q_DECLARE_LOGGING_CATEGORY(resourceDebug)
 Q_DECLARE_LOGGING_CATEGORY(moveDebug)
 Q_DECLARE_LOGGING_CATEGORY(boardDebug)
+Q_DECLARE_LOGGING_CATEGORY(castlingDebug)
 
 /**
  * @brief Logger class for providing convenient way to have clean logs
