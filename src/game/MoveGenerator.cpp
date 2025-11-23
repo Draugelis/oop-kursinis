@@ -98,7 +98,10 @@ MoveGenerator::generatePieceMoves(core::Position pos,
 
     // Check for castling
     if (piece.getType() == core::PieceType::KING) {
+      // Castling is done only from the starting file
+      int startFile = pos.getFile();
       bool isCastling =
+          (startFile == core::FILE_E) &&
           (destinationFile == core::FILE_G || destinationFile == core::FILE_C);
 
       if (isCastling) {
