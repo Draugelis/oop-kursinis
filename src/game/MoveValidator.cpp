@@ -77,8 +77,17 @@ bool MoveValidator::leavesKingInCheck(const Move &move,
   m_bitboards.movePiece(move.getFrom(), move.getTo(), color,
                         move.getPieceType());
 
+  // Create new context with new occupancy for the evaluation 
+  bitboards::BitBoard intermediateOccupancy = m_bitboards.getAllOccupancy();
+  MoveContext intermediateContext(
+      context.getCastlingRights(),
+      context.getEnPassant(),
+      context.getSideToMove(),
+      intermediateOccupancy
+  );
+
   // Evaluate if king is in check after the move
-  bool leftInCheck = isInCheck(color, context);
+  bool leftInCheck = isInCheck(color, intermediateContext);
 
   Logger::debug(moveDebug(),
                 "King in check after move: " + std::to_string(leftInCheck));
