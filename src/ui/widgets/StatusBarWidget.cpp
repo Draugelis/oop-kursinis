@@ -24,19 +24,22 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
 void StatusBarWidget::setupUI() {
   // Create horizontal layout
   m_pLayout = new QHBoxLayout(this);
-  m_pLayout->setContentsMargins(10, 5, 10,
-                                5); // 10px on sides, 5px on top and bottom
+  m_pLayout->setContentsMargins(UIConstants::STATUS_BAR_SIDE_MARGIN,
+                                UIConstants::STATUS_BAR_VERTICAL_MARGIN,
+                                UIConstants::STATUS_BAR_SIDE_MARGIN,
+                                UIConstants::STATUS_BAR_VERTICAL_MARGIN);
 
   // Left: turn label
   m_pTurnLabel = new QLabel("Turn: White", this);
-  m_pTurnLabel->setFont(ChessStyle::boldFont(14));
+  m_pTurnLabel->setFont(ChessStyle::boldFont(UIConstants::FONT_SIZE_STANDARD));
   m_pTurnLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
   m_pTurnLabel->setStyleSheet(
       QString("color: %1;").arg(ChessStyle::textPrimary().name()));
 
   // Right: game status label
   m_pStatusLabel = new QLabel("In Progress", this);
-  m_pStatusLabel->setFont(ChessStyle::standardFont(14));
+  m_pStatusLabel->setFont(
+      ChessStyle::standardFont(UIConstants::FONT_SIZE_STANDARD));
   m_pStatusLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
   m_pStatusLabel->setStyleSheet(
       QString("color: %1;").arg(ChessStyle::statusNormal().name()));
@@ -86,18 +89,29 @@ void StatusBarWidget::setGameStatus(const QString &status) {
 
 /**
  * @brief Recommended status bar size hint
- * TODO: REPLACE PLACEHOLDER WITH PROPER IMPLEMENTATION
+ *
  * @return QSize
  */
 QSize StatusBarWidget::sizeHint() const {
-  return QSize(800, 60); // placeholder
-}
+  // Use parent layout to calculate sizing
+  if (parentWidget()) {
+    return QSize(parentWidget()->width(),
+                 static_cast<int>(UIConstants::GAME_WINDOW_HEIGHT *
+                                  UIConstants::STATUS_BAR_HEIGHT_RATIO));
+  }
 
+  // Fallback
+  return QSize(UIConstants::STATUS_BAR_FALLBACK_WIDTH,
+               static_cast<int>(UIConstants::GAME_WINDOW_HEIGHT *
+                                UIConstants::STATUS_BAR_HEIGHT_RATIO));
+}
 /**
  * @brief Recommended minimum status bar size hint
- * TODO: REPLACE PLACEHOLDER WITH PROPER IMPLEMENTATION
+ *
  * @return QSize
  */
 QSize StatusBarWidget::minimumSizeHint() const {
-  return QSize(400, 40); // placeholder
+  return QSize(UIConstants::STATUS_BAR_MIN_WIDTH,
+               static_cast<int>(UIConstants::GAME_WINDOW_HEIGHT *
+                                UIConstants::STATUS_BAR_HEIGHT_RATIO));
 }

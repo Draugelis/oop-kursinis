@@ -6,6 +6,7 @@
 #include "PromotionDialog.h"
 #include "QVBoxLayout"
 #include "ui/style/ChessStyle.h"
+#include "ui/style/UIConstants.h"
 
 PromotionDialog::PromotionDialog(bool isWhite, QWidget *parent)
     : QDialog(parent), m_pLayout(nullptr), m_pTitleLabel(nullptr),
@@ -28,13 +29,13 @@ void PromotionDialog::setupUI() {
 
   // Title label
   m_pTitleLabel = new QLabel("Choose promotion piece:", this);
-  m_pTitleLabel->setFont(ChessStyle::boldFont(16));
+  m_pTitleLabel->setFont(ChessStyle::boldFont(UIConstants::FONT_SIZE_MEDIUM));
   m_pTitleLabel->setAlignment(Qt::AlignCenter);
   baseLayout->addWidget(m_pTitleLabel);
 
   // 2x2 grid layout for piece buttons
   m_pLayout = new QGridLayout();
-  m_pLayout->setSpacing(10);
+  m_pLayout->setSpacing(UIConstants::PROMOTION_GRID_SPACING);
 
   // Create piece buttons with color in the name prefix
   // TODO: store SVG paths in constants file for proper storage
@@ -59,13 +60,13 @@ void PromotionDialog::setupUI() {
   setLayout(baseLayout);
 
   // Set dialog size
-  // TODO: extract hard-coded magic numbers into consts file
-  setFixedSize(400, 350);
+  setFixedSize(UIConstants::PROMOTION_DIALOG_WIDTH,
+               UIConstants::PROMOTION_DIALOG_HEIGHT);
 }
 
 /**
  * @brief Create a piece button with icon
- * 
+ *
  * @param button Reference to button pointer to create
  * @param pieceName Name of the piece
  * @param svgPath Path to piece SVG icon
@@ -76,8 +77,10 @@ void PromotionDialog::createPieceButton(QPushButton *&button,
   // Set up button
   button = new QPushButton(this);
   button->setText(pieceName);
-  button->setMinimumSize(150, 150);
-  button->setIconSize(QSize(100, 100));
+  button->setMinimumSize(UIConstants::PROMOTION_BUTTON_SIZE,
+                         UIConstants::PROMOTION_BUTTON_SIZE);
+  button->setIconSize(QSize(UIConstants::PROMOTION_ICON_SIZE,
+                            UIConstants::PROMOTION_ICON_SIZE));
 
   QIcon icon(svgPath);
   button->setIcon(icon);
@@ -86,21 +89,25 @@ void PromotionDialog::createPieceButton(QPushButton *&button,
   // TODO: move style sheets to ChessStyle
   button->setStyleSheet(QString("QPushButton {"
                                 "    background-color: %1;"
-                                "    border: 2px solid %2;"
-                                "    border-radius: 10px;"
-                                "    font-size: 14px;"
+                                "    border: %2px solid %3;"
+                                "    border-radius: %4px;"
+                                "    font-size: %5px;"
                                 "    font-weight: bold;"
                                 "}"
                                 "QPushButton:hover {"
-                                "    background-color: %3;"
-                                "    border: 3px solid %4;"
+                                "    background-color: %6;"
+                                "    border: %7px solid %8;"
                                 "}"
                                 "QPushButton:pressed {"
-                                "    background-color: %5;"
+                                "    background-color: %9;"
                                 "}")
                             .arg(ChessStyle::buttonNormal().name())
+                            .arg(UIConstants::BORDER_THIN)
                             .arg(ChessStyle::border().name())
+                            .arg(UIConstants::BORDER_RADIUS_MEDIUM)
+                            .arg(UIConstants::FONT_SIZE_STANDARD)
                             .arg(ChessStyle::buttonHover().name())
+                            .arg(UIConstants::BORDER_MEDIUM)
                             .arg(ChessStyle::textPrimary().name())
                             .arg(ChessStyle::buttonPressed().name()));
 
@@ -111,27 +118,27 @@ void PromotionDialog::createPieceButton(QPushButton *&button,
 
 /**
  * @brief Handle piece selection
- * 
+ *
  * Determines which button was clicked and closes the dialog
  */
 void PromotionDialog::onPieceSelected() {
-    QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
-    
-    if (!clickedButton) {
-        return; // no button was clicked
-    }
+  QPushButton *clickedButton = qobject_cast<QPushButton *>(sender());
 
-    // Determine which piece was selected
-    if (clickedButton == m_pQueenButton) {
-        m_strSelectedPiece = "Queen";
-    } else if (clickedButton == m_pRookButton) {
-        m_strSelectedPiece = "Rook";
-    } else if (clickedButton == m_pBishopButton) {
-        m_strSelectedPiece = "Bishop";
-    } else if (clickedButton == m_pKnightButton) {
-        m_strSelectedPiece = "Knight";
-    }
-    
-    // Close dialog with accept status
-    accept();
+  if (!clickedButton) {
+    return; // no button was clicked
+  }
+
+  // Determine which piece was selected
+  if (clickedButton == m_pQueenButton) {
+    m_strSelectedPiece = "Queen";
+  } else if (clickedButton == m_pRookButton) {
+    m_strSelectedPiece = "Rook";
+  } else if (clickedButton == m_pBishopButton) {
+    m_strSelectedPiece = "Bishop";
+  } else if (clickedButton == m_pKnightButton) {
+    m_strSelectedPiece = "Knight";
+  }
+
+  // Close dialog with accept status
+  accept();
 }

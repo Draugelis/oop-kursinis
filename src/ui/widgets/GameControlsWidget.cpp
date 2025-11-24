@@ -5,6 +5,7 @@
 
 #include "GameControlsWidget.h"
 #include "ui/style/ChessStyle.h"
+#include "ui/style/UIConstants.h"
 
 /**
  * @brief Construct a new Game Controls Widget object
@@ -24,8 +25,10 @@ GameControlsWidget::GameControlsWidget(QWidget *parent)
 void GameControlsWidget::setupUI() {
   // Create horizontal layout
   m_pLayout = new QHBoxLayout(this);
-  m_pLayout->setContentsMargins(10, 10, 10, 10); // 10px margins
-  m_pLayout->setSpacing(20);
+  m_pLayout->setContentsMargins(
+      UIConstants::GAME_CONTROLS_MARGIN, UIConstants::GAME_CONTROLS_MARGIN,
+      UIConstants::GAME_CONTROLS_MARGIN, UIConstants::GAME_CONTROLS_MARGIN);
+  m_pLayout->setSpacing(UIConstants::GAME_CONTROLS_SPACING);
 
   // Create buttons
   m_pNewGameButton = new QPushButton("New Game", this);
@@ -35,7 +38,8 @@ void GameControlsWidget::setupUI() {
   applyButtonStyle(m_pNewGameButton);
   applyButtonStyle(m_pMenuButton);
 
-  QSize minButtonSize(120, 40);
+  QSize minButtonSize(UIConstants::GAME_CONTROLS_BUTTON_MIN_WIDTH,
+                      UIConstants::GAME_CONTROLS_BUTTON_MIN_HEIGHT);
   m_pNewGameButton->setMinimumSize(minButtonSize);
   m_pMenuButton->setMinimumSize(minButtonSize);
 
@@ -64,33 +68,51 @@ void GameControlsWidget::applyButtonStyle(QPushButton *button) {
                                 "    background-color: %1;"
                                 "    color: %2;"
                                 "    border: none;"
-                                "    border-radius: 5px;"
-                                "    padding: 10px 20px;"
-                                "    font-size: 14px;"
+                                "    border-radius: %3px;"
+                                "    padding: %4px %5px;"
+                                "    font-size: %6px;"
                                 "    font-weight: bold;"
                                 "}"
                                 "QPushButton:hover {"
-                                "    background-color: %3;"
+                                "    background-color: %7;"
                                 "}"
                                 "QPushButton:pressed {"
-                                "    background-color: %4;"
+                                "    background-color: %8;"
                                 "}")
                             .arg(ChessStyle::buttonNormal().name())
                             .arg(ChessStyle::textPrimary().name())
+                            .arg(UIConstants::BORDER_RADIUS_SMALL)
+                            .arg(UIConstants::GAME_CONTROLS_BUTTON_PADDING)
+                            .arg(UIConstants::GAME_CONTROLS_BUTTON_PADDING * 2)
+                            .arg(UIConstants::FONT_SIZE_STANDARD)
                             .arg(ChessStyle::buttonHover().name())
                             .arg(ChessStyle::buttonPressed().name()));
 }
-
 /**
  * @brief Recommended size
- * TODO: move these magic numbers to constants
+ *
  * @return QSize Recommended size
  */
-QSize GameControlsWidget::sizeHint() const { return QSize(400, 60); }
+QSize GameControlsWidget::sizeHint() const {
+  // Use parent layout to calculate sizing
+  if (parentWidget()) {
+    int parentWidth = parentWidget()->width();
+    int parentHeight = parentWidget()->height();
+    return QSize(parentWidth,
+                 static_cast<int>(parentHeight *
+                                  UIConstants::GAME_CONTROLS_HEIGHT_RATIO));
+  }
+  // Fallback
+  return QSize(UIConstants::GAME_CONTROLS_FALLBACK_WIDTH,
+               UIConstants::GAME_CONTROLS_FALLBACK_HEIGHT);
+}
 
 /**
  * @brief Recommended minimum size
- * TODO: move these magic numbers to constants
+ *
  * @return QSize Minimum size
  */
-QSize GameControlsWidget::minimumSizeHint() const { return QSize(300, 50); }
+QSize GameControlsWidget::minimumSizeHint() const {
+  return QSize(UIConstants::GAME_CONTROLS_MIN_WIDTH,
+               UIConstants::GAME_CONTROLS_MIN_HEIGHT);
+}

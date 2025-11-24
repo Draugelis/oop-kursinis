@@ -6,6 +6,7 @@
 
 #include "MainMenuWindow.h"
 #include "ui/style/ChessStyle.h"
+#include "ui/style/UIConstants.h"
 
 /**
  * @brief Construct a new Main Menu Window object
@@ -17,8 +18,7 @@ MainMenuWindow::MainMenuWindow(QWidget *parent)
       m_pTitleLabel(nullptr), m_pStartButton(nullptr), m_pQuitButton(nullptr) {
   setupUI();
   setWindowTitle("Chess Game");
-  // TODO: move to constants
-  resize(600, 400);
+  resize(UIConstants::MAIN_MENU_WIDTH, UIConstants::MAIN_MENU_HEIGHT);
 }
 
 /**
@@ -32,30 +32,35 @@ void MainMenuWindow::setupUI() {
 
   // Set up main layout
   m_pMainLayout = new QVBoxLayout(m_pCentralWidget);
-  m_pMainLayout->setContentsMargins(50, 50, 50, 50); // 50 px margins
-  m_pMainLayout->setSpacing(30);
+  m_pMainLayout->setContentsMargins(
+      UIConstants::MAIN_MENU_MARGIN, UIConstants::MAIN_MENU_MARGIN,
+      UIConstants::MAIN_MENU_MARGIN, UIConstants::MAIN_MENU_MARGIN);
+  m_pMainLayout->setSpacing(UIConstants::MAIN_MENU_SPACING);
   m_pMainLayout->addStretch(2); // center the content
 
   // Set up title label
   m_pTitleLabel = new QLabel("Chess Game", m_pCentralWidget);
-  m_pTitleLabel->setFont(ChessStyle::standardFont(48)); // TODO: change font
+  m_pTitleLabel->setFont(
+      ChessStyle::standardFont(UIConstants::FONT_SIZE_TITLE));
   m_pTitleLabel->setAlignment(Qt::AlignCenter);
   m_pTitleLabel->setStyleSheet(
       QString("color: %1;").arg(ChessStyle::textPrimary().name()));
   m_pMainLayout->addWidget(m_pTitleLabel);
-  m_pMainLayout->addSpacing(50);
+  m_pMainLayout->addSpacing(UIConstants::MAIN_MENU_TITLE_SPACING);
 
   // Set up Start Game button
   m_pStartButton = new QPushButton("Start Game", m_pCentralWidget);
-  m_pStartButton->setMinimumSize(200, 60); // TODO: move to constants
-  m_pStartButton->setFont(ChessStyle::boldFont(18));
+  m_pStartButton->setMinimumSize(UIConstants::MAIN_MENU_BUTTON_MIN_WIDTH,
+                                 UIConstants::MAIN_MENU_BUTTON_MIN_HEIGHT);
+  m_pStartButton->setFont(ChessStyle::boldFont(UIConstants::FONT_SIZE_LARGE));
   applyButtonStyle(m_pStartButton);
   m_pMainLayout->addWidget(m_pStartButton);
 
   // Set up Quit button
   m_pQuitButton = new QPushButton("Quit", m_pCentralWidget);
-  m_pQuitButton->setMinimumSize(200, 60); // TODO: move to constants
-  m_pQuitButton->setFont(ChessStyle::boldFont(18));
+  m_pQuitButton->setMinimumSize(UIConstants::MAIN_MENU_BUTTON_MIN_WIDTH,
+                                UIConstants::MAIN_MENU_BUTTON_MIN_HEIGHT);
+  m_pQuitButton->setFont(ChessStyle::boldFont(UIConstants::FONT_SIZE_LARGE));
   applyButtonStyle(m_pQuitButton);
   m_pMainLayout->addWidget(m_pQuitButton);
 
@@ -82,21 +87,26 @@ void MainMenuWindow::applyButtonStyle(QPushButton *button) {
   button->setStyleSheet(QString("QPushButton {"
                                 "    background-color: %1;"
                                 "    color: %2;"
-                                "    border: 2px solid %3;"
-                                "    border-radius: 10px;"
-                                "    padding: 15px 30px;"
+                                "    border: %3px solid %4;"
+                                "    border-radius: %5px;"
+                                "    padding: %6px %7px;"
                                 "}"
                                 "QPushButton:hover {"
-                                "    background-color: %4;"
-                                "    border: 3px solid %5;"
+                                "    background-color: %8;"
+                                "    border: %9px solid %10;"
                                 "}"
                                 "QPushButton:pressed {"
-                                "    background-color: %6;"
+                                "    background-color: %11;"
                                 "}")
                             .arg(ChessStyle::buttonNormal().name())
                             .arg(ChessStyle::textPrimary().name())
+                            .arg(UIConstants::BORDER_THIN)
                             .arg(ChessStyle::border().name())
+                            .arg(UIConstants::BORDER_RADIUS_MEDIUM)
+                            .arg(UIConstants::MAIN_MENU_BUTTON_PADDING)
+                            .arg(UIConstants::MAIN_MENU_BUTTON_PADDING * 2)
                             .arg(ChessStyle::buttonHover().name())
+                            .arg(UIConstants::BORDER_MEDIUM)
                             .arg(ChessStyle::textPrimary().name())
                             .arg(ChessStyle::buttonPressed().name()));
 }

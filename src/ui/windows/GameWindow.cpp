@@ -5,6 +5,7 @@
 
 #include "GameWindow.h"
 #include "ui/style/ChessStyle.h"
+#include "ui/style/UIConstants.h"
 
 /**
  * @brief Construct a new Game Window object
@@ -20,12 +21,12 @@ GameWindow::GameWindow(QWidget *parent)
   connectSignals();
 
   setWindowTitle("Chess Game");
-  resize(1024, 768); // TODO: move to constants
+  resize(UIConstants::GAME_WINDOW_WIDTH, UIConstants::GAME_WINDOW_HEIGHT);
 }
 
 /**
  * @brief Setup UI components
- * TODO: Extract magic numbers to constants file
+ *
  */
 void GameWindow::setupUI() {
   // Set up central widget
@@ -39,7 +40,9 @@ void GameWindow::setupUI() {
 
   // Set up status bar
   m_pStatusBar = new StatusBarWidget(m_pCentralWidget);
-  m_pStatusBar->setFixedHeight(60); // ~10% window height
+  int statusBarHeight = static_cast<int>(UIConstants::GAME_WINDOW_HEIGHT *
+                                         UIConstants::STATUS_BAR_HEIGHT_RATIO);
+  m_pStatusBar->setFixedHeight(statusBarHeight);
   m_pMainLayout->addWidget(m_pStatusBar);
 
   // Set up horizontal game layout
@@ -49,11 +52,13 @@ void GameWindow::setupUI() {
   // Board container
   m_pBoardContainer = new QWidget(m_pBoardContainer);
   QVBoxLayout *boardContainerLayout = new QVBoxLayout(m_pBoardContainer);
-  boardContainerLayout->setContentsMargins(10, 10, 10, 10);
+  boardContainerLayout->setContentsMargins(
+      UIConstants::BOARD_CONTAINER_MARGIN, UIConstants::BOARD_CONTAINER_MARGIN,
+      UIConstants::BOARD_CONTAINER_MARGIN, UIConstants::BOARD_CONTAINER_MARGIN);
 
   m_pBoard = new BoardWidget(m_pBoardContainer);
   boardContainerLayout->addWidget(m_pBoard, 0, Qt::AlignCenter);
-  m_pGameLayout->addWidget(m_pBoardContainer, 3); // Strech 3 fills 75%
+  m_pGameLayout->addWidget(m_pBoardContainer, 7); // 70% width
 
   // Set up side bar
   m_pSidebarContainer = new QWidget(m_pCentralWidget);
@@ -63,14 +68,13 @@ void GameWindow::setupUI() {
 
   // Set up move history
   m_pMoveHistory = new MoveHistoryWidget(m_pSidebarContainer);
-  m_pSidebarLayout->addWidget(m_pMoveHistory, 9); // 90% of height
+  m_pSidebarLayout->addWidget(m_pMoveHistory, 9); // 90% height
 
   // Game control buttons
   m_pControls = new GameControlsWidget(m_pSidebarContainer);
   m_pSidebarLayout->addWidget(m_pControls, 1); // 10% of height
 
-  m_pGameLayout->addWidget(m_pSidebarContainer,
-                           1); // 25% width fill (1:3 ratio with board)
+  m_pGameLayout->addWidget(m_pSidebarContainer, 3); // 30% width
 
   m_pMainLayout->addLayout(m_pGameLayout);
 

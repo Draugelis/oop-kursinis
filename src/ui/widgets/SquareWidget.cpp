@@ -6,6 +6,7 @@
 #include "SquareWidget.h"
 #include "core/Logging.h"
 #include "ui/style/ChessStyle.h"
+#include "ui/style/UIConstants.h"
 #include <QFile>
 #include <QMouseEvent>
 #include <QPainter>
@@ -111,8 +112,8 @@ void SquareWidget::setShowLabels(bool showFile, bool showRank) {
  * @return QSize Recommended square size
  */
 QSize SquareWidget::sizeHint() const {
-  return QSize(ChessStyle::preferredSquareSize(),
-               ChessStyle::preferredSquareSize());
+  return QSize(UIConstants::SQUARE_PREFERRED_SIZE,
+               UIConstants::SQUARE_PREFERRED_SIZE);
 }
 
 /**
@@ -122,7 +123,7 @@ QSize SquareWidget::sizeHint() const {
  * @return QSize Recommended minimum square size
  */
 QSize SquareWidget::minimumSizeHint() const {
-  return QSize(ChessStyle::minSquareSize(), ChessStyle::minSquareSize());
+  return QSize(UIConstants::SQUARE_MIN_SIZE, UIConstants::SQUARE_MIN_SIZE);
 }
 
 /**
@@ -226,10 +227,13 @@ void SquareWidget::drawLegalMoveIndicator(QPainter &painter) {
                                          : ChessStyle::legalMoveEmpty();
 
   // Draw border for the moves
-  QPen pen(indicatorColor, 4);
+  QPen pen(indicatorColor, UIConstants::SQUARE_INDICATOR_BORDER_WIDTH);
   painter.setPen(pen);
   painter.setBrush(Qt::NoBrush);
-  painter.drawRect(rect().adjusted(2, 2, -2, -2)); // 2 px margins
+  painter.drawRect(rect().adjusted(UIConstants::SQUARE_INDICATOR_MARGIN,
+                                   UIConstants::SQUARE_INDICATOR_MARGIN,
+                                   -UIConstants::SQUARE_INDICATOR_MARGIN,
+                                   -UIConstants::SQUARE_INDICATOR_MARGIN));
 }
 
 /**
@@ -256,7 +260,9 @@ void SquareWidget::drawPiece(QPainter &painter) {
     return;
   }
 
-  QRect pieceRect = rect().adjusted(5, 5, -5, -5); // 5 px margins
+  QRect pieceRect =
+      rect().adjusted(UIConstants::PIECE_MARGIN, UIConstants::PIECE_MARGIN,
+                      -UIConstants::PIECE_MARGIN, -UIConstants::PIECE_MARGIN);
   renderer.render(&painter, pieceRect);
 }
 
@@ -275,7 +281,7 @@ void SquareWidget::drawLabels(QPainter &painter) {
                                                    : ChessStyle::lightSquare();
 
   painter.setPen(labelColor);
-  painter.setFont(ChessStyle::standardFont(10));
+  painter.setFont(ChessStyle::standardFont(UIConstants::FONT_SIZE_SMALL));
 
   // File indicators are located on the bottom row
   if (m_bShowFile && m_nRow == 7) {

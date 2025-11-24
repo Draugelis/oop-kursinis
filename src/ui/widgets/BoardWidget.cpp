@@ -4,7 +4,7 @@
  */
 
 #include "ui/widgets/BoardWidget.h"
-#include "ui/style/ChessStyle.h"
+#include "ui/style/UIConstants.h"
 
 /**
  * @brief Construct a new Board Widget object
@@ -169,7 +169,7 @@ void BoardWidget::setSelectedSquare(int row, int col) {
  * @return QSize Recommended board size (square aspect ratio)
  */
 QSize BoardWidget::sizeHint() const {
-  int size = 8 * ChessStyle::preferredSquareSize();
+  int size = 8 * UIConstants::SQUARE_PREFERRED_SIZE;
   return QSize(size, size);
 }
 
@@ -179,7 +179,7 @@ QSize BoardWidget::sizeHint() const {
  * @return QSize Minimum board size (square aspect ratio)
  */
 QSize BoardWidget::minimumSizeHint() const {
-  int size = 8 * ChessStyle::minSquareSize();
+  int size = 8 * UIConstants::SQUARE_MIN_SIZE;
   return QSize(size, size);
 }
 

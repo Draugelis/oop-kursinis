@@ -23,7 +23,9 @@ MoveHistoryWidget::MoveHistoryWidget(QWidget *parent)
 void MoveHistoryWidget::setupUI() {
   // Create base vertical layout
   m_pLayout = new QVBoxLayout(this);
-  m_pLayout->setContentsMargins(5, 5, 5, 5); // 5px margins
+  m_pLayout->setContentsMargins(
+      UIConstants::MOVE_HISTORY_MARGIN, UIConstants::MOVE_HISTORY_MARGIN,
+      UIConstants::MOVE_HISTORY_MARGIN, UIConstants::MOVE_HISTORY_MARGIN);
   m_pLayout->setSpacing(0);
 
   // Create and set up table widget
@@ -33,7 +35,8 @@ void MoveHistoryWidget::setupUI() {
 
   // Set up column widths
   m_pTableWidget->horizontalHeader()->setStretchLastSection(false);
-  m_pTableWidget->setColumnWidth(0, 40);
+  m_pTableWidget->setColumnWidth(0,
+                                 UIConstants::MOVE_HISTORY_MOVE_NUMBER_WIDTH);
   m_pTableWidget->horizontalHeader()->setSectionResizeMode(
       1, QHeaderView::Stretch);
   m_pTableWidget->horizontalHeader()->setSectionResizeMode(
@@ -60,7 +63,7 @@ void MoveHistoryWidget::setupUI() {
               "QHeaderView::section {"
               "    background-color: %5;"
               "    color: %6;"
-              "    padding: 5px;"
+              "    padding: %7px;"
               "    border: none;"
               "    font-weight: bold;"
               "}")
@@ -69,7 +72,8 @@ void MoveHistoryWidget::setupUI() {
           .arg(ChessStyle::moveHistoryHighlight().name())
           .arg(ChessStyle::border().name())
           .arg(ChessStyle::statusBackground().name())
-          .arg(ChessStyle::textPrimary().name()));
+          .arg(ChessStyle::textPrimary().name())
+          .arg(UIConstants::MOVE_HISTORY_MARGIN));
 
   // Hide row numbers
   m_pTableWidget->verticalHeader()->setVisible(false);
@@ -109,11 +113,9 @@ void MoveHistoryWidget::rebuildTable() {
 
 /**
  * @brief Scroll to bottom of table to show latest move
- * 
+ *
  */
-void MoveHistoryWidget::scrollToBottom() {
-  m_pTableWidget->scrollToBottom();
-}
+void MoveHistoryWidget::scrollToBottom() { m_pTableWidget->scrollToBottom(); }
 
 /**
  * @brief Add a move to the history
@@ -128,7 +130,7 @@ void MoveHistoryWidget::addMove(const QString &move) {
 
 /**
  * @brief Set all moves
- * 
+ *
  * @param moves Vector of move notation string
  */
 void MoveHistoryWidget::setMoves(const std::vector<QString> &moves) {
@@ -139,7 +141,7 @@ void MoveHistoryWidget::setMoves(const std::vector<QString> &moves) {
 
 /**
  * @brief Clear whole move history
- * 
+ *
  */
 void MoveHistoryWidget::clearHistory() {
   m_moves.clear();
@@ -148,18 +150,29 @@ void MoveHistoryWidget::clearHistory() {
 
 /**
  * @brief Recommended size hint
- * TODO: move these magic numbers to constants
+ *
  * @return QSize Recommended size
  */
 QSize MoveHistoryWidget::sizeHint() const {
-    return QSize(250, 400);
+  // Use parent layout to calculate sizing
+  if (parentWidget()) {
+    int parentWidth = parentWidget()->width();
+    int parentHeight = parentWidget()->height();
+    return QSize(parentWidth,
+                 static_cast<int>(parentHeight *
+                                  UIConstants::MOVE_HISTORY_HEIGHT_RATIO));
+  }
+  // Fallback
+  return QSize(UIConstants::MOVE_HISTORY_FALLBACK_WIDTH,
+               UIConstants::MOVE_HISTORY_FALLBACK_HEIGHT);
 }
 
 /**
  * @brief Recommended minimum size hint
- * TODO: move these magic numbers to constants
+ *
  * @return QSize Minimum size
  */
 QSize MoveHistoryWidget::minimumSizeHint() const {
-    return QSize(150, 200);
+  return QSize(UIConstants::MOVE_HISTORY_MIN_WIDTH,
+               UIConstants::MOVE_HISTORY_MIN_HEIGHT);
 }
