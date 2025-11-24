@@ -7,8 +7,10 @@
 #include <QCommandLineParser>
 #include <QDir>
 #include <QDirIterator>
+#include <QFontDatabase>
 
 int main(int argc, char *argv[]) {
+  Logger::FunctionScope logScope;
   QApplication app(argc, argv);
 
   // Parse command line
@@ -20,6 +22,15 @@ int main(int argc, char *argv[]) {
                                  "Enable debug output");
   parser.addOption(debugOption);
   parser.process(app);
+
+  int fontId = QFontDatabase::addApplicationFont(
+      ":/assets/fonts/PressStart2P-Regular.ttf");
+
+  if (fontId == -1) {
+    Logger::warning(resourceDebug(), "Failed to load Press Start 2P font");
+  } else {
+    Logger::debug(resourceDebug(), "Press Start 2P font loaded successfully");
+  }
 
   // Enable debug logging if flag is set
   if (parser.isSet(debugOption)) {
@@ -33,7 +44,6 @@ int main(int argc, char *argv[]) {
         "default.debug=true" // Allow uncategorized qDebug
     );
 
-    Logger::FunctionScope logScope;
     Logger::debug(gameDebug(), "Debug mode enabled");
   }
 

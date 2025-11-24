@@ -70,10 +70,10 @@ constexpr int PROMOTION_GRID_SPACING = 10;
 
 // Typography
 constexpr int FONT_SIZE_SMALL = 10;
-constexpr int FONT_SIZE_STANDARD = 14;
-constexpr int FONT_SIZE_MEDIUM = 16;
-constexpr int FONT_SIZE_LARGE = 18;
-constexpr int FONT_SIZE_TITLE = 48;
+constexpr int FONT_SIZE_STANDARD = 12;
+constexpr int FONT_SIZE_MEDIUM = 14;
+constexpr int FONT_SIZE_LARGE = 16;
+constexpr int FONT_SIZE_TITLE = 24;
 
 // Borders
 constexpr int BORDER_THIN = 2;

@@ -44,10 +44,10 @@ inline QColor moveHistoryHeaderText() { return QColor("#b0b0b0"); }
 
 // Fonts
 inline QFont standardFont(int size = UIConstants::FONT_SIZE_STANDARD) {
-  return QFont("Arial", size);
+  return QFont("Press Start 2P", size);
 }
 inline QFont boldFont(int size = UIConstants::FONT_SIZE_STANDARD) {
-  QFont font("Arial", size);
+  QFont font("Press Start 2P", size);
   font.setBold(true);
   return font;
 }
