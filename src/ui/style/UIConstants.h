@@ -82,4 +82,6 @@ constexpr int BORDER_MEDIUM = 3;
 constexpr int BORDER_RADIUS_SMALL = 5;
 constexpr int BORDER_RADIUS_MEDIUM = 10;
 
+// Asset paths
+constexpr const char* PIECE_IMG_PATH_TEMPLATE = ":/assets/pieces/%1_%2.png";
 } // namespace UIConstants

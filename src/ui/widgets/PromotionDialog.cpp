@@ -38,16 +38,23 @@ void PromotionDialog::setupUI() {
   m_pLayout->setSpacing(UIConstants::PROMOTION_GRID_SPACING);
 
   // Create piece buttons with color in the name prefix
-  // TODO: store SVG paths in constants file for proper storage
   QString colorPrefix = m_bIsWhite ? "w" : "b";
   createPieceButton(m_pQueenButton, "Queen",
-                    QString(":/assets/pieces/%1_queen.svg").arg(colorPrefix));
+                    QString(UIConstants::PIECE_IMG_PATH_TEMPLATE)
+                        .arg(colorPrefix)
+                        .arg("queen"));
   createPieceButton(m_pRookButton, "Rook",
-                    QString(":/assets/pieces/%1_rook.svg").arg(colorPrefix));
+                    QString(UIConstants::PIECE_IMG_PATH_TEMPLATE)
+                        .arg(colorPrefix)
+                        .arg("rook"));
   createPieceButton(m_pBishopButton, "Bishop",
-                    QString(":/assets/pieces/%1_bishop.svg").arg(colorPrefix));
+                    QString(UIConstants::PIECE_IMG_PATH_TEMPLATE)
+                        .arg(colorPrefix)
+                        .arg("bishop"));
   createPieceButton(m_pKnightButton, "Knight",
-                    QString(":/assets/pieces/%1_knight.svg").arg(colorPrefix));
+                    QString(UIConstants::PIECE_IMG_PATH_TEMPLATE)
+                        .arg(colorPrefix)
+                        .arg("knight"));
 
   // Add buttons to grid (2x2 layout)
   m_pLayout->addWidget(m_pQueenButton, 0, 0);

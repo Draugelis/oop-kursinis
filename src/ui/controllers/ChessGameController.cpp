@@ -5,6 +5,7 @@
 
 #include "ChessGameController.h"
 #include "core/Logging.h"
+#include "ui/style/UIConstants.h"
 #include "ui/widgets/PromotionDialog.h"
 #include <QMessageBox>
 
@@ -357,7 +358,7 @@ QString ChessGameController::getPieceSvgPath(core::PieceType type,
     break;
   }
 
-  return QString(":/assets/pieces/%1_%2.svg").arg(colorPrefix).arg(pieceName);
+  return QString(UIConstants::PIECE_IMG_PATH_TEMPLATE).arg(colorPrefix).arg(pieceName);
 }
 
 /**
