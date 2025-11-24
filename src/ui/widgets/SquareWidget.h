@@ -12,8 +12,8 @@ private:
   // Square's column on the board
   int m_nCol;
 
-  // Path to piece's SVG file
-  QString m_strPieceSvg;
+  // Path to piece's image file
+  QString m_strPieceImage;
   // Flag whether square is selected
   bool m_bIsSelected;
   // Flag whether square is hovered
@@ -58,11 +58,11 @@ public:
   int getCol() const;
   // Check whether a square is selected
   bool isSelected() const;
-  // Get piece SVG for a square
-  QString getPieceSvg() const;
+  // Get piece image for a square
+  QString getPieceImage() const;
 
-  // Square's piece SVG setter
-  void setPieceSvg(const QString &svgPath);
+  // Square's piece image setter
+  void setPieceImage(const QString &imagePath);
   // Square's selected flag setter
   void setSelected(bool selected);
   // Square's legal move/capture indicator setter

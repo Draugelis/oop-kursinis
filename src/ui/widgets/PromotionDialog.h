@@ -31,7 +31,7 @@ private:
   void setupUI();
   // Create a piece button with icon
   void createPieceButton(QPushButton *&button, const QString &pieceName,
-                         const QString &svgPath);
+                         const QString &imagePath);
 
 public:
   explicit PromotionDialog(bool isWhite, QWidget *parent = nullptr);

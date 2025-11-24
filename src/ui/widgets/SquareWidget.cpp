@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QPixmap>
 #include <QSvgRenderer>
 
 /**
@@ -20,7 +21,7 @@
  * @param parent Parent Widget
  */
 SquareWidget::SquareWidget(int row, int col, QWidget *parent)
-    : QWidget(parent), m_nRow(row), m_nCol(col), m_strPieceSvg(""),
+    : QWidget(parent), m_nRow(row), m_nCol(col), m_strPieceImage(""),
       m_bIsSelected(false), m_bIsHovered(false), m_bShowLegalMove(false),
       m_bShowCapture(false), m_bShowFile(false), m_bShowRank(false) {
   // Enable hover events
@@ -54,20 +55,20 @@ int SquareWidget::getCol() const { return m_nCol; }
 bool SquareWidget::isSelected() const { return m_bIsSelected; }
 
 /**
- * @brief Get piece SVG for a square
+ * @brief Get piece image for a square
  *
 
- * @return QString Path to SVG file
+ * @return QString Path to image file
  */
-QString SquareWidget::getPieceSvg() const { return m_strPieceSvg; }
+QString SquareWidget::getPieceImage() const { return m_strPieceImage; }
 
 /**
- * @brief Square's piece SVG setter
+ * @brief Square's piece image setter
  *
- * @param svgPath Path to SVG file
+ * @param imagePath Path to image file
  */
-void SquareWidget::setPieceSvg(const QString &svgPath) {
-  m_strPieceSvg = svgPath;
+void SquareWidget::setPieceImage(const QString &imagePath) {
+  m_strPieceImage = imagePath;
   update();
 }
 
@@ -242,28 +243,47 @@ void SquareWidget::drawLegalMoveIndicator(QPainter &painter) {
  * @param painter
  */
 void SquareWidget::drawPiece(QPainter &painter) {
-  if (m_strPieceSvg.isEmpty()) {
+  if (m_strPieceImage.isEmpty()) {
     return; // nothing to draw
   }
 
   Logger::FunctionScope logScope;
 
-  Logger::debug(resourceDebug(),
-                "Loading SVG: " + m_strPieceSvg.toStdString() +
-                    " exists: " + std::to_string(QFile::exists(m_strPieceSvg)));
-
-  QSvgRenderer renderer(m_strPieceSvg);
-
-  if (!renderer.isValid()) {
-    Logger::warning(resourceDebug(),
-                    "Invalid SVG renderer for: " + m_strPieceSvg.toStdString());
-    return;
-  }
+  Logger::debug(
+      resourceDebug(),
+      "Loading image: " + m_strPieceImage.toStdString() +
+          " exists: " + std::to_string(QFile::exists(m_strPieceImage)));
 
   QRect pieceRect =
       rect().adjusted(UIConstants::PIECE_MARGIN, UIConstants::PIECE_MARGIN,
                       -UIConstants::PIECE_MARGIN, -UIConstants::PIECE_MARGIN);
-  renderer.render(&painter, pieceRect);
+
+  // Use QSvgRenderer for SVG files
+  if (m_strPieceImage.endsWith(".svg", Qt::CaseInsensitive)) {
+    QSvgRenderer renderer(m_strPieceImage);
+
+    if (!renderer.isValid()) {
+      Logger::warning(resourceDebug(), "Invalid SVG renderer for: " +
+                                           m_strPieceImage.toStdString());
+      return;
+    }
+
+    renderer.render(&painter, pieceRect);
+    return; // done rendering
+  }
+
+  // Use QPixmap for raster images
+  QPixmap pixmap(m_strPieceImage);
+
+  if (pixmap.isNull()) {
+    Logger::warning(resourceDebug(),
+                    "Failed to load image: " + m_strPieceImage.toStdString());
+    return;
+  }
+
+  // Scale to fit pieceRect smoothly
+  painter.setRenderHint(QPainter::SmoothPixmapTransform);
+  painter.drawPixmap(pieceRect, pixmap);
 }
 
 /**

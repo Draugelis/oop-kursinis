@@ -36,12 +36,12 @@ private:
   void updateStatusDisplay();
   // Update move history display
   void updateMoveHistoryDisplay();
-  // Convert board state to piece SVG paths
+  // Convert board state to piece image paths
   std::vector<std::vector<QString>> convertBoardToPiecePaths();
   // Get legal moves for selected piece as 2D grid
   std::vector<std::vector<bool>> getLegalMovesForSelected();
-  // Convert piece type and color to SVG path
-  QString getPieceSvgPath(core::PieceType type, core::Color color) const;
+  // Convert piece type and color to image path
+  QString getPieceImagePath(core::PieceType type, core::Color color) const;
   // Convert Move to algebraic notation
   QString moveToAlgebraic(const game::Move &move) const;
   // Handle pawn promotion dialog

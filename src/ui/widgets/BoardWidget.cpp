@@ -66,11 +66,11 @@ void BoardWidget::updateSquareLabels() {
 /**
  * @brief Set piece positions on the board
  *
- * @param positions 8x8 vector of SVG file paths
+ * @param positions 8x8 vector of image file paths
  */
 void BoardWidget::setPiecePositions(
     const std::vector<std::vector<QString>> &positions) {
-  // Exit early if given vector doesn't have 8 rows of SVGs
+  // Exit early if given vector doesn't have 8 rows of images
   if (positions.size() != 8) {
     return;
   }
@@ -82,7 +82,7 @@ void BoardWidget::setPiecePositions(
     }
 
     for (int col = 0; col < 8; col++) {
-      m_pSquares[row][col]->setPieceSvg(positions[row][col]);
+      m_pSquares[row][col]->setPieceImage(positions[row][col]);
     }
   }
 }
@@ -94,7 +94,7 @@ void BoardWidget::setPiecePositions(
  */
 void BoardWidget::setLegalMoveSquares(
     const std::vector<std::vector<bool>> &legalMoves) {
-  // Exit early if given vector doesn't have 8 rows of SVGs
+  // Exit early if given vector doesn't have 8 rows of Images
   if (legalMoves.size() != 8) {
     return;
   }
@@ -107,9 +107,9 @@ void BoardWidget::setLegalMoveSquares(
 
     for (int col = 0; col < 8; col++) {
       bool isLegalMove = legalMoves[row][col];
-      // Move is a capture, if it is legal on square with piece SVG
+      // Move is a capture, if it is legal on square with piece image
       bool isCapture =
-          isLegalMove && !m_pSquares[row][col]->getPieceSvg().isEmpty();
+          isLegalMove && !m_pSquares[row][col]->getPieceImage().isEmpty();
 
       m_pSquares[row][col]->setShowLegalMove(isLegalMove, isCapture);
     }

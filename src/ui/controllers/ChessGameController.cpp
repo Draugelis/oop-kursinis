@@ -277,9 +277,9 @@ void ChessGameController::updateMoveHistoryDisplay() {
 }
 
 /**
- * @brief Covnert board state to piece SVG paths
+ * @brief Convert board state to piece image paths
  *
- * @return std::vector<std::vector<QString>> 8x8 grid of SVG paths
+ * @return std::vector<std::vector<QString>> 8x8 grid of image paths
  */
 std::vector<std::vector<QString>>
 ChessGameController::convertBoardToPiecePaths() {
@@ -294,7 +294,7 @@ ChessGameController::convertBoardToPiecePaths() {
       auto piece = board.getPieceAt(pos);
 
       if (piece) {
-        paths[row][col] = getPieceSvgPath(piece->getType(), piece->getColor());
+        paths[row][col] = getPieceImagePath(piece->getType(), piece->getColor());
       }
     }
   }
@@ -326,13 +326,13 @@ std::vector<std::vector<bool>> ChessGameController::getLegalMovesForSelected() {
 }
 
 /**
- * @brief Convert piece type and color to SVG path
+ * @brief Convert piece type and color to image path
  *
  * @param type Piece type
  * @param color Piece color
- * @return QString SVG file path
+ * @return QString image file path
  */
-QString ChessGameController::getPieceSvgPath(core::PieceType type,
+QString ChessGameController::getPieceImagePath(core::PieceType type,
                                              core::Color color) const {
   QString colorPrefix = (color == core::Color::WHITE) ? "w" : "b";
   QString pieceName;
@@ -358,7 +358,9 @@ QString ChessGameController::getPieceSvgPath(core::PieceType type,
     break;
   }
 
-  return QString(UIConstants::PIECE_IMG_PATH_TEMPLATE).arg(colorPrefix).arg(pieceName);
+  return QString(UIConstants::PIECE_IMG_PATH_TEMPLATE)
+      .arg(colorPrefix)
+      .arg(pieceName);
 }
 
 /**

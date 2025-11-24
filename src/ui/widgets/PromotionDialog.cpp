@@ -76,11 +76,11 @@ void PromotionDialog::setupUI() {
  *
  * @param button Reference to button pointer to create
  * @param pieceName Name of the piece
- * @param svgPath Path to piece SVG icon
+ * @param imagePath Path to piece image icon
  */
 void PromotionDialog::createPieceButton(QPushButton *&button,
                                         const QString &pieceName,
-                                        const QString &svgPath) {
+                                        const QString &imagePath) {
   // Set up button
   button = new QPushButton(this);
   button->setText(pieceName);
@@ -89,7 +89,7 @@ void PromotionDialog::createPieceButton(QPushButton *&button,
   button->setIconSize(QSize(UIConstants::PROMOTION_ICON_SIZE,
                             UIConstants::PROMOTION_ICON_SIZE));
 
-  QIcon icon(svgPath);
+  QIcon icon(imagePath);
   button->setIcon(icon);
 
   // Add button style
