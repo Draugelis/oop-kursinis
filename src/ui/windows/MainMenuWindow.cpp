@@ -19,6 +19,8 @@ MainMenuWindow::MainMenuWindow(QWidget *parent)
   setupUI();
   setWindowTitle("Chess Game");
   resize(UIConstants::MAIN_MENU_WIDTH, UIConstants::MAIN_MENU_HEIGHT);
+  // Disable resizing because I am too lazy to bother with responsive UI
+  setFixedSize(UIConstants::MAIN_MENU_WIDTH, UIConstants::MAIN_MENU_HEIGHT);
 }
 
 /**

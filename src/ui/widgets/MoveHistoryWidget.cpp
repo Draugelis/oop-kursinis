@@ -37,6 +37,8 @@ void MoveHistoryWidget::setupUI() {
   m_pTableWidget->horizontalHeader()->setStretchLastSection(false);
   m_pTableWidget->setColumnWidth(0,
                                  UIConstants::MOVE_HISTORY_MOVE_NUMBER_WIDTH);
+  m_pTableWidget->horizontalHeader()->setSectionResizeMode(0,
+                                                           QHeaderView::Fixed); // disable resize
   m_pTableWidget->horizontalHeader()->setSectionResizeMode(
       1, QHeaderView::Stretch);
   m_pTableWidget->horizontalHeader()->setSectionResizeMode(
