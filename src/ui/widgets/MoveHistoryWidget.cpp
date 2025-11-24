@@ -71,8 +71,8 @@ void MoveHistoryWidget::setupUI() {
           .arg(ChessStyle::moveHistoryOdd().name())
           .arg(ChessStyle::moveHistoryHighlight().name())
           .arg(ChessStyle::border().name())
-          .arg(ChessStyle::statusBackground().name())
-          .arg(ChessStyle::textPrimary().name())
+          .arg(ChessStyle::moveHistoryHeader().name())
+          .arg(ChessStyle::moveHistoryHeaderText().name())
           .arg(UIConstants::MOVE_HISTORY_MARGIN));
 
   // Hide row numbers

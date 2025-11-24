@@ -49,9 +49,6 @@ void StatusBarWidget::setupUI() {
   m_pLayout->addStretch(); // Create a gap between labels
   m_pLayout->addWidget(m_pStatusLabel);
 
-  setStyleSheet(QString("background-color: %1;")
-                    .arg(ChessStyle::statusBackground().name()));
-
   setLayout(m_pLayout);
 }
 
