@@ -61,6 +61,7 @@ void MoveHistoryWidget::setupUI() {
               "    selection-background-color: %3;"
               "    gridline-color: %4;"
               "    border: 1px solid %4;"
+              "    font-family: '%9';"
               "}"
               "QHeaderView::section {"
               "    background-color: %5;"
@@ -68,6 +69,7 @@ void MoveHistoryWidget::setupUI() {
               "    padding: %7px;"
               "    border: none;"
               "    font-weight: bold;"
+              "    font-family: '%9';"
               "}")
           .arg(ChessStyle::moveHistoryEven().name())
           .arg(ChessStyle::moveHistoryOdd().name())
@@ -75,7 +77,8 @@ void MoveHistoryWidget::setupUI() {
           .arg(ChessStyle::border().name())
           .arg(ChessStyle::moveHistoryHeader().name())
           .arg(ChessStyle::moveHistoryHeaderText().name())
-          .arg(UIConstants::MOVE_HISTORY_MARGIN));
+          .arg(UIConstants::MOVE_HISTORY_MARGIN)
+          .arg(UIConstants::DEFAULT_TYPEFACE));
 
   // Hide row numbers
   m_pTableWidget->verticalHeader()->setVisible(false);

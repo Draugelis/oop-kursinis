@@ -40,14 +40,14 @@ inline QColor moveHistoryEven() { return QColor("#3d3d3d"); }
 inline QColor moveHistoryOdd() { return QColor("#353535"); }
 inline QColor moveHistoryHighlight() { return QColor("#81b64c40"); }
 inline QColor moveHistoryHeader() { return QColor("#4a4a4a"); }
-inline QColor moveHistoryHeaderText() { return QColor("#b0b0b0"); } 
+inline QColor moveHistoryHeaderText() { return QColor("#b0b0b0"); }
 
 // Fonts
 inline QFont standardFont(int size = UIConstants::FONT_SIZE_STANDARD) {
-  return QFont("Press Start 2P", size);
+  return QFont(UIConstants::DEFAULT_TYPEFACE, size);
 }
 inline QFont boldFont(int size = UIConstants::FONT_SIZE_STANDARD) {
-  QFont font("Press Start 2P", size);
+  QFont font(UIConstants::DEFAULT_TYPEFACE, size);
   font.setBold(true);
   return font;
 }

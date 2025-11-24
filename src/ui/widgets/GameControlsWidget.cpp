@@ -72,6 +72,7 @@ void GameControlsWidget::applyButtonStyle(QPushButton *button) {
                                 "    padding: %4px %5px;"
                                 "    font-size: %6px;"
                                 "    font-weight: bold;"
+                                "    font-family: '%9';"
                                 "}"
                                 "QPushButton:hover {"
                                 "    background-color: %7;"
@@ -84,9 +85,10 @@ void GameControlsWidget::applyButtonStyle(QPushButton *button) {
                             .arg(UIConstants::BORDER_RADIUS_SMALL)
                             .arg(UIConstants::GAME_CONTROLS_BUTTON_PADDING)
                             .arg(UIConstants::GAME_CONTROLS_BUTTON_PADDING * 2)
-                            .arg(UIConstants::FONT_SIZE_STANDARD)
+                            .arg(UIConstants::FONT_SIZE_SMALL)
                             .arg(ChessStyle::buttonHover().name())
-                            .arg(ChessStyle::buttonPressed().name()));
+                            .arg(ChessStyle::buttonPressed().name())
+                            .arg(UIConstants::DEFAULT_TYPEFACE));
 }
 /**
  * @brief Recommended size

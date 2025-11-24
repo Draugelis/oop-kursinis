@@ -52,7 +52,7 @@ constexpr int GAME_CONTROLS_MARGIN = 10;
 constexpr int GAME_CONTROLS_SPACING = 20;
 constexpr int GAME_CONTROLS_BUTTON_MIN_WIDTH = 120;
 constexpr int GAME_CONTROLS_BUTTON_MIN_HEIGHT = 40;
-constexpr int GAME_CONTROLS_BUTTON_PADDING = 10;
+constexpr int GAME_CONTROLS_BUTTON_PADDING = 5;
 constexpr int GAME_CONTROLS_MIN_WIDTH = 280;
 constexpr int GAME_CONTROLS_MIN_HEIGHT = 60;
 constexpr int GAME_CONTROLS_FALLBACK_WIDTH = 300;
@@ -69,6 +69,7 @@ constexpr int PROMOTION_ICON_SIZE = 100;
 constexpr int PROMOTION_GRID_SPACING = 10;
 
 // Typography
+constexpr const char* DEFAULT_TYPEFACE = "Press Start 2P";
 constexpr int FONT_SIZE_SMALL = 10;
 constexpr int FONT_SIZE_STANDARD = 12;
 constexpr int FONT_SIZE_MEDIUM = 14;
