@@ -10,7 +10,7 @@ constexpr int GAME_WINDOW_WIDTH = 1024; // 4x3 scale
 constexpr int GAME_WINDOW_HEIGHT = 768; // 4x3 scale
 
 // Sizing ratios in the game window
-constexpr double STATUS_BAR_HEIGHT_RATIO = 0.10;
+constexpr double STATUS_BAR_HEIGHT_RATIO = 0.05;
 constexpr double BOARD_WIDTH_RATIO = 0.70;
 constexpr double SIDEBAR_WIDTH_RATIO = 0.30;
 constexpr double MOVE_HISTORY_HEIGHT_RATIO = 0.90;

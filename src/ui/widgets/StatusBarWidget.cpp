@@ -39,7 +39,7 @@ void StatusBarWidget::setupUI() {
   // Right: game status label
   m_pStatusLabel = new QLabel("In Progress", this);
   m_pStatusLabel->setFont(
-      ChessStyle::standardFont(UIConstants::FONT_SIZE_STANDARD));
+      ChessStyle::boldFont(UIConstants::FONT_SIZE_STANDARD));
   m_pStatusLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
   m_pStatusLabel->setStyleSheet(
       QString("color: %1;").arg(ChessStyle::statusNormal().name()));
