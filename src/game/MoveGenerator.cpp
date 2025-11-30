@@ -91,8 +91,10 @@ MoveGenerator::generatePieceMoves(core::Position pos,
         (destinationRank == core::RANK_8 || destinationRank == core::RANK_1)) {
       Logger::debug(moveDebug(),
                     "Adding PROMOTION move to " + moveDestination.toString());
+
+      // Default to Queen and override promotion piece in the dialog
       moves.push_back(Move(pos, moveDestination, piece.getType(), color,
-                           MoveType::PROMOTION));
+                           MoveType::PROMOTION, core::PieceType::QUEEN));
       continue; // Move added, carry on
     }
 
@@ -132,8 +134,11 @@ MoveGenerator::generatePieceMoves(core::Position pos,
         (destinationRank == core::RANK_8 || destinationRank == core::RANK_1)) {
       Logger::debug(moveDebug(), "Adding PROMOTION CAPTURE move to " +
                                      attackDestination.toString());
+
+      // Default to Queen and override promotion piece in the dialog
       moves.push_back(Move(pos, attackDestination, piece.getType(), color,
-                           MoveType::PROMOTION_CAPTURE));
+                           MoveType::PROMOTION_CAPTURE,
+                           core::PieceType::QUEEN));
       continue; // Move added, carry on
     }
 
