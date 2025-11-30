@@ -16,8 +16,8 @@ inline QColor textSecondary() { return QColor("#b0b0b0"); }
 inline QColor border() { return QColor("#555555"); }
 
 // Board colors
-inline QColor lightSquare() { return QColor("#ebecd0"); }
-inline QColor darkSquare() { return QColor("#739552"); }
+inline QColor lightSquare() { return QColor("#d0d0d0"); }
+inline QColor darkSquare() { return QColor("#808080"); }
 inline QColor hoverColor() { return QColor("#ffffff15"); }
 inline QColor selectedSquare() { return QColor("#f7f769"); }
 
