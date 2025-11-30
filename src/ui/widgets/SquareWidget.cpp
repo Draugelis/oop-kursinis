@@ -282,8 +282,9 @@ void SquareWidget::drawPiece(QPainter &painter) {
   }
 
   // Scale to fit pieceRect smoothly
-  painter.setRenderHint(QPainter::SmoothPixmapTransform);
-  painter.drawPixmap(pieceRect, pixmap);
+  QPixmap scaledPixmap = pixmap.scaled(pieceRect.size(), Qt::KeepAspectRatio,
+                                       Qt::FastTransformation);
+  painter.drawPixmap(pieceRect, scaledPixmap);
 }
 
 /**

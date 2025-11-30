@@ -5,19 +5,19 @@
         <file>assets/fonts/PressStart2P-Regular.ttf</file>
 
         <!-- White pieces -->
-        <file>assets/pieces/w_pawn.svg</file>
-        <file>assets/pieces/w_rook.svg</file>
-        <file>assets/pieces/w_knight.svg</file>
-        <file>assets/pieces/w_bishop.svg</file>
-        <file>assets/pieces/w_queen.svg</file>
-        <file>assets/pieces/w_king.svg</file>
+        <file>assets/pieces/w_pawn.png</file>
+        <file>assets/pieces/w_rook.png</file>
+        <file>assets/pieces/w_knight.png</file>
+        <file>assets/pieces/w_bishop.png</file>
+        <file>assets/pieces/w_queen.png</file>
+        <file>assets/pieces/w_king.png</file>
         
         <!-- Black pieces -->
-        <file>assets/pieces/b_pawn.svg</file>
-        <file>assets/pieces/b_rook.svg</file>
-        <file>assets/pieces/b_knight.svg</file>
-        <file>assets/pieces/b_bishop.svg</file>
-        <file>assets/pieces/b_queen.svg</file>
-        <file>assets/pieces/b_king.svg</file>
+        <file>assets/pieces/b_pawn.png</file>
+        <file>assets/pieces/b_rook.png</file>
+        <file>assets/pieces/b_knight.png</file>
+        <file>assets/pieces/b_bishop.png</file>
+        <file>assets/pieces/b_queen.png</file>
+        <file>assets/pieces/b_king.png</file>
     </qresource>
 </RCC>
